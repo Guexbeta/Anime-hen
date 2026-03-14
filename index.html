@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANIME-HENTAI | المشاهدة الممتعة</title>
+    <title>أنمي ستريم | المشاهدة الممتعة</title>
     <meta name="description" content="موقع لمشاهدة أحدث مسلسلات وحلقات الأنمي بجودة عالية.">
     
-    <!-- خطوط جوجل (Cairo) -->
+    <!-- خطوط جوجل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -17,15 +17,8 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                    },
-                    colors: {
-                        gray: {
-                            850: '#1f2937',
-                            950: '#030712',
-                        }
-                    }
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: { gray: { 850: '#1f2937', 950: '#030712' } }
                 }
             }
         }
@@ -38,37 +31,25 @@
     <script src="https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js"></script>
 
     <style>
-        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #030712; }
         ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #6d28d9; }
 
-        /* حركات الانيميشن الأساسية */
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        .slide-up { animation: slideUp 0.5s ease-out; }
-        .zoom-in { animation: zoomIn 0.4s ease-out; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        .slide-up { animation: slideUp 0.4s ease-out; }
+        .zoom-in { animation: zoomIn 0.3s ease-out; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        /* إخفاء العناصر غير النشطة بسلاسة */
         .hidden-view { display: none !important; }
-
-        /* خلفية احتياطية للصور المكسورة */
-        .fallback-image-bg {
-            background: linear-gradient(to bottom right, #1f2937, #111827);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* تحسينات الإدخال (Search) */
+        .fallback-image-bg { background: linear-gradient(to bottom right, #1f2937, #111827); display: flex; align-items: center; justify-content: center; }
         input:focus { outline: none; }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 selection:text-white flex flex-col min-h-screen">
+<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 flex flex-col min-h-screen">
 
     <!-- شريط التنقل العلوي -->
     <nav class="fixed w-full top-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50 shadow-lg transition-all">
@@ -144,17 +125,16 @@
             </div>
 
             <div id="stats-container" class="flex justify-between items-center text-sm font-medium text-gray-400 mb-6 border-b border-gray-800/50 pb-4">
-                <!-- الإحصائيات تضاف هنا بواسطة JS -->
+                <!-- الإحصائيات -->
             </div>
 
             <div id="series-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
-                <!-- بطاقات الأنمي تضاف هنا بواسطة JS -->
+                <!-- بطاقات الأنمي -->
             </div>
             
             <div id="no-results" class="hidden-view text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800/50 backdrop-blur-sm">
                 <i data-lucide="alert-circle" class="mx-auto h-16 w-16 text-gray-600 mb-4 block"></i>
                 <h3 class="text-xl font-bold text-gray-300">لم يتم العثور على نتائج</h3>
-                <p class="text-gray-500 mt-2">جرب البحث بكلمات مختلفة أو تأكد من الإملاء.</p>
             </div>
         </div>
 
@@ -169,9 +149,8 @@
                     <div class="w-1.5 h-8 bg-purple-500 rounded-full"></div>
                     <h3 class="text-2xl font-bold text-white">الحلقات المتاحة</h3>
                 </div>
-                
                 <div id="episodes-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- الحلقات تضاف هنا بواسطة JS -->
+                    <!-- الحلقات -->
                 </div>
             </div>
         </div>
@@ -184,11 +163,11 @@
 
             <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5 group">
                 <div id="video-container" class="w-full h-full">
-                    <!-- Iframe يضاف هنا بواسطة JS -->
+                    <!-- Iframe -->
                 </div>
             </div>
 
-            <!-- 💰 مساحة إعلانية 2: إعلان البانر أسفل المشغل مباشرة (متجاوب ومركزي) -->
+            <!-- 💰 مساحة إعلانية 2: إعلان البانر -->
             <div class="w-full flex justify-center items-center mb-8 overflow-hidden">
                 <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg">
                     <script type="text/javascript">
@@ -204,18 +183,14 @@
                 </div>
             </div>
 
-            <div id="servers-container" class="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg">
+            <div id="servers-container" class="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg mb-8">
                 <h3 class="text-white font-bold mb-5 flex items-center gap-2 text-lg">
                     <i data-lucide="server" class="w-5 h-5 text-purple-500"></i>
-                    اختر سيرفر المشاهدة المناسب لك:
+                    اختر سيرفر المشاهدة:
                 </h3>
                 <div id="servers-list" class="flex flex-wrap gap-3">
-                    <!-- أزرار السيرفرات تضاف هنا بواسطة JS -->
+                    <!-- أزرار السيرفرات -->
                 </div>
-                <p class="mt-5 text-sm text-gray-500 flex items-center gap-2 bg-gray-800/50 p-3 rounded-lg w-fit">
-                    <i data-lucide="info" class="w-4 h-4 text-purple-400"></i>
-                    ملاحظة: إذا لم يعمل السيرفر الأول، يرجى اختيار سيرفر آخر من القائمة.
-                </p>
             </div>
         </div>
 
@@ -235,320 +210,229 @@
         </div>
     </footer>
 
-    <!-- سكريبت التطبيق (منظم ومقروء بالكامل) -->
+    <!-- سكريبت التطبيق (نظام التوجيه الحقيقي Router System) -->
     <script>
-        // تفعيل أيقونات Lucide
         lucide.createIcons();
 
-        // 🔗 الرابط الخاص بالخادم الوسيط (محمي بالـ CORS)
+        // 🔗 الرابط الخاص بالخادم الوسيط
         const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
 
         let appData = null;
-        let currentView = 'home';
-        let currentSeries = null;
-        let currentEpisode = null;
+        let currentSeriesIndex = null;
+        let currentEpisodeIndex = null;
         let currentServer = null;
 
-        // دالة لمنع ثغرات XSS في النصوص
         const escapeHTML = (str) => {
             if (!str) return '';
-            return str.toString().replace(/[&<>'"]/g, 
-                tag => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag])
-            );
+            return str.toString().replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
         };
 
-        // دالة للتعامل مع الصور التي تفشل في التحميل
         function handleImageError(img) {
-            img.onerror = null;
-            img.style.display = 'none';
-            img.nextElementSibling.classList.remove('hidden');
+            img.onerror = null; img.style.display = 'none'; img.nextElementSibling.classList.remove('hidden');
         }
 
-        // جلب البيانات من الخادم
+        // ==========================================
+        // 🚀 نظام التوجيه والصفحات (Router System)
+        // ==========================================
+        
+        // قراءة الرابط وتحديد الصفحة التي يجب عرضها
+        function handleRouting() {
+            if (!appData) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const seriesParam = urlParams.get('series');
+            const watchParam = urlParams.get('watch');
+
+            if (seriesParam !== null && watchParam !== null) {
+                // نحن في صفحة المشاهدة
+                renderWatchView(parseInt(seriesParam), parseInt(watchParam));
+            } else if (seriesParam !== null) {
+                // نحن في صفحة تفاصيل المسلسل
+                renderSeriesView(parseInt(seriesParam));
+            } else {
+                // نحن في الصفحة الرئيسية
+                renderHomeView();
+            }
+        }
+
+        // الاستماع لزر الرجوع والتقدم في المتصفح أو الهاتف
+        window.addEventListener('popstate', () => {
+            handleRouting();
+        });
+
+        // دوال تغيير الروابط (Navigation)
+        function goHome() {
+            history.pushState(null, '', window.location.pathname); // يزيل البرامترات ليعود للرئيسية
+            handleRouting();
+        }
+
+        function navigateBack() {
+            // زر الرجوع في واجهتنا يطلب من المتصفح العودة للخطوة السابقة (كما يفعل زر الهاتف)
+            if(window.history.length > 1) {
+                history.back();
+            } else {
+                goHome(); // إذا لم يكن هناك سجل، عد للرئيسية
+            }
+        }
+
+        window.openSeriesByIndex = function(index) {
+            history.pushState(null, '', `?series=${index}`);
+            handleRouting();
+        };
+
+        window.openWatchByIndex = function(epIndex) {
+            history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`);
+            handleRouting();
+        };
+
+        // ==========================================
+        // 📡 جلب البيانات الأساسية
+        // ==========================================
+
         async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error('لا يمكن الوصول إلى خادم البيانات.');
-                }
+                if (!response.ok) throw new Error('لا يمكن الوصول إلى خادم البيانات.');
                 appData = await response.json();
                 
                 renderHomeStats();
-                renderSeriesGrid(appData.series);
-                switchView('home-view');
+                
+                // بدلاً من فتح الرئيسية دائماً، نقرأ الرابط لتحديد الصفحة (مهم جداً للمشاركة)
+                handleRouting(); 
+                
             } catch (error) {
-                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك بالإنترنت أو أن رابط موقعك مضاف بشكل صحيح في إعدادات الخادم (CORS). التفاصيل: " + error.message;
+                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك بالإنترنت. التفاصيل: " + error.message;
                 switchView('error-view');
             }
         }
 
-        // التنقل بين الشاشات
+        // ==========================================
+        // 🎨 دوال الرسم والعرض (Render Functions)
+        // ==========================================
+
         function switchView(viewId) {
             const views = ['loading-view', 'error-view', 'home-view', 'series-view', 'watch-view'];
-            
-            // إخفاء جميع الشاشات
-            views.forEach(id => {
-                document.getElementById(id).classList.add('hidden-view');
-            });
-            
-            // إظهار الشاشة المطلوبة
+            views.forEach(id => document.getElementById(id).classList.add('hidden-view'));
             document.getElementById(viewId).classList.remove('hidden-view');
             
-            // التعامل مع زر الرجوع
             const backBtn = document.getElementById('back-btn');
             if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') {
-                backBtn.classList.add('hidden');
-                backBtn.classList.remove('flex');
+                backBtn.classList.add('hidden'); backBtn.classList.remove('flex');
             } else {
-                backBtn.classList.remove('hidden');
-                backBtn.classList.add('flex');
+                backBtn.classList.remove('hidden'); backBtn.classList.add('flex');
             }
 
-            // الصعود لأعلى الصفحة بسلاسة
             window.scrollTo({ top: 0, behavior: 'smooth' });
             lucide.createIcons();
         }
 
-        // العودة للرئيسية
-        function goHome() {
-            currentView = 'home';
-            currentSeries = null;
-            currentEpisode = null;
-            
-            // إعادة تعيين شريط البحث وإظهار كل الشبكة
+        // 1. عرض الرئيسية
+        function renderHomeView() {
             const searchInput = document.getElementById('search-input');
-            if(searchInput) {
-                searchInput.value = '';
-            }
+            if(searchInput) searchInput.value = ''; // تصفير البحث
             
-            if(appData && appData.series) {
-                renderSeriesGrid(appData.series);
-            }
+            renderSeriesGrid(appData.series);
             switchView('home-view');
         }
 
-        // زر الرجوع
-        function navigateBack() {
-            if (currentView === 'watch') {
-                openSeries(currentSeries);
-            } else if (currentView === 'series') {
-                goHome();
-            }
-        }
-
-        // البحث السريع
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.toLowerCase().trim();
-            if (!appData || !appData.series) return;
-
-            const filtered = appData.series.filter(s => 
-                (s.title && s.title.toLowerCase().includes(query)) || 
-                (s.description && s.description.toLowerCase().includes(query))
-            );
-
-            renderSeriesGrid(filtered);
-        }
-
-        // عرض إحصائيات الصفحة الرئيسية
         function renderHomeStats() {
             if (!appData) return;
-            const statsHtml = `
+            document.getElementById('stats-container').innerHTML = `
                 <div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800">
                     <i data-lucide="clapperboard" class="w-4 h-4 text-purple-500"></i>
                     <span>إجمالي الأعمال: <span class="text-white font-bold ml-1">${appData.total_series || appData.series.length}</span></span>
                 </div>
                 <div class="flex items-center gap-2 text-gray-500">
                     <i data-lucide="clock" class="w-4 h-4"></i>
-                    <span>تحديث:</span>
-                    <span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span>
+                    <span>تحديث:</span><span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span>
                 </div>
             `;
-            document.getElementById('stats-container').innerHTML = statsHtml;
         }
 
-        // رسم شبكة مسلسلات الأنمي
         function renderSeriesGrid(seriesList) {
-            const grid = document.getElementById('series-grid');
-            const noResults = document.getElementById('no-results');
+            const grid = document.getElementById('series-grid'); const noResults = document.getElementById('no-results');
+            if (seriesList.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
+            noResults.classList.add('hidden-view'); let html = '';
 
-            if (seriesList.length === 0) {
-                grid.innerHTML = '';
-                noResults.classList.remove('hidden-view');
-                return;
-            }
-
-            noResults.classList.add('hidden-view');
-            let html = '';
-
-            seriesList.forEach((series, index) => {
+            seriesList.forEach((series) => {
                 const episodesCount = series.episodes_count || (series.episodes ? series.episodes.length : 0);
-                const title = escapeHTML(series.title);
-                const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
-                // استخدام الفهرس الأصلي في المصفوفة الكلية لضمان فتح المسلسل الصحيح حتى بعد التصفية (البحث)
+                const title = escapeHTML(series.title); const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
                 const originalIndex = appData.series.indexOf(series);
 
                 html += `
                 <div onclick="openSeriesByIndex(${originalIndex})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800 flex flex-col">
                     <div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg">
                         <img src="${poster}" alt="${title}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" />
-                        
-                        <!-- عنصر الصورة البديلة (يظهر فقط إذا فشلت الصورة الأصلية) -->
-                        <div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800">
-                            <i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i>
-                            <span class="text-xs opacity-70 line-clamp-2 leading-tight">${title}</span>
-                        </div>
-                        
+                        <div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800"><i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div>
-                        
-                        <!-- زر التشغيل عند التمرير -->
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px] z-30">
-                            <div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform duration-300 flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
-                            </div>
+                            <div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform duration-300 flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i></div>
                         </div>
-
-                        <!-- شارة الحلقات -->
-                        <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg">
-                            <i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i>
-                            <span>${episodesCount}</span>
-                        </div>
-
-                        <!-- العنوان السفلي -->
-                        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30">
-                            <h3 class="font-bold text-gray-100 text-sm sm:text-base line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors" title="${title}">
-                                ${title}
-                            </h3>
-                        </div>
+                        <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg"><i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i><span>${episodesCount}</span></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30"><h3 class="font-bold text-gray-100 text-sm sm:text-base line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors">${title}</h3></div>
                     </div>
-                </div>
-                `;
+                </div>`;
             });
-
-            grid.innerHTML = html;
-            lucide.createIcons();
+            grid.innerHTML = html; lucide.createIcons();
         }
 
-        // فتح صفحة المسلسل بناء على الفهرس
-        window.openSeriesByIndex = function(index) {
-            openSeries(appData.series[index]);
-        };
-
-        // عرض تفاصيل المسلسل وقائمة الحلقات
-        function openSeries(series) {
-            currentView = 'series';
-            currentSeries = series;
+        // 2. عرض تفاصيل المسلسل
+        function renderSeriesView(index) {
+            const series = appData.series[index];
+            if (!series) { goHome(); return; } // إذا كان الرابط خاطئ، نعود للرئيسية
+            
+            currentSeriesIndex = index;
             
             const title = escapeHTML(series.title);
             const desc = escapeHTML(series.description) || "لا يوجد قصة أو وصف متاح لهذا المسلسل في الوقت الحالي.";
             const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
             const episodesList = series.episodes || [];
 
-            const heroHtml = `
-                <!-- الخلفية الضبابية -->
-                <div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden">
-                    <img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-gray-950/80 via-transparent to-transparent"></div>
-                </div>
-                
+            document.getElementById('series-hero').innerHTML = `
+                <div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden"><img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" /><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div></div>
                 <div class="relative z-10 px-6 sm:px-10 py-10 sm:py-16 flex flex-col md:flex-row gap-8 items-center md:items-end">
-                    <!-- الغلاف الواضح -->
-                    <div class="shrink-0 w-48 sm:w-56 md:w-64 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center">
-                        <img src="${poster}" onerror="handleImageError(this)" alt="${title}" class="w-full h-full object-cover z-10" />
-                        <div class="hidden absolute flex flex-col items-center justify-center text-gray-500 p-2 text-center z-0">
-                            <i data-lucide="image-off" class="w-12 h-12 opacity-30 mb-2"></i>
-                        </div>
-                    </div>
-                    
-                    <!-- المعلومات -->
+                    <div class="shrink-0 w-48 sm:w-56 md:w-64 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center"><img src="${poster}" onerror="handleImageError(this)" alt="${title}" class="w-full h-full object-cover z-10" /></div>
                     <div class="flex-1 text-center md:text-right mt-4 md:mt-0">
-                        <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full text-xs font-bold mb-4 backdrop-blur-md">
-                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> أنمي متوفر
-                        </div>
+                        <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full text-xs font-bold mb-4 backdrop-blur-md"><i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> أنمي متوفر</div>
                         <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2>
                         <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/40 p-5 rounded-2xl backdrop-blur-md border border-white/5 shadow-inner">${desc}</p>
-                        
                         <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl backdrop-blur-sm border border-gray-700 shadow-lg">
-                                <i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i>
-                                <span class="font-bold">${episodesList.length} حلقات</span>
-                            </div>
-                            ${episodesList.length > 0 ? `
-                            <button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:-translate-y-0.5">
-                                <i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة
-                            </button>` : ''}
+                            <div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl backdrop-blur-sm border border-gray-700 shadow-lg"><i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i><span class="font-bold">${episodesList.length} حلقات</span></div>
+                            ${episodesList.length > 0 ? `<button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:-translate-y-0.5"><i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة</button>` : ''}
                         </div>
                     </div>
-                </div>
-            `;
-            document.getElementById('series-hero').innerHTML = heroHtml;
+                </div>`;
 
             const episodesContainer = document.getElementById('episodes-list');
             if (episodesList.length === 0) {
-                episodesContainer.innerHTML = `
-                    <div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm">
-                        <i data-lucide="inbox" class="mx-auto h-14 w-14 text-gray-600 mb-4 block"></i>
-                        <p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p>
-                    </div>`;
+                episodesContainer.innerHTML = `<div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm"><i data-lucide="inbox" class="mx-auto h-14 w-14 text-gray-600 mb-4 block"></i><p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p></div>`;
             } else {
                 let epHtml = '';
-                episodesList.forEach((ep, index) => {
-                    const serverCount = ep.servers ? ep.servers.length : 0;
-                    epHtml += `
-                    <button onclick="openWatchByIndex(${index})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 relative overflow-hidden text-right w-full">
-                        <div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div>
-                        <div class="flex items-center gap-4 pr-3">
-                            <div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all shadow-inner border border-gray-800 group-hover:border-purple-500 shrink-0 group-hover:scale-110">
-                                <i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors ml-1 ${index === 0 ? 'fill-current' : ''}"></i>
-                            </div>
-                            <div>
-                                <span class="block font-bold text-gray-200 group-hover:text-white transition-colors mb-1 text-lg">
-                                    ${escapeHTML(ep.episode)}
-                                </span>
-                                <span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit">
-                                    <i data-lucide="server" class="w-3 h-3 text-purple-400"></i>
-                                    ${serverCount} سيرفرات
-                                </span>
-                            </div>
-                        </div>
-                        <div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full transition-colors">
-                            <i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400 transform group-hover:-translate-x-1 transition-all"></i>
-                        </div>
-                    </button>
-                    `;
+                episodesList.forEach((ep, idx) => {
+                    epHtml += `<button onclick="openWatchByIndex(${idx})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 relative overflow-hidden text-right w-full"><div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div><div class="flex items-center gap-4 pr-3"><div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all shadow-inner border border-gray-800 group-hover:border-purple-500 shrink-0 group-hover:scale-110"><i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors ml-1 ${idx === 0 ? 'fill-current' : ''}"></i></div><div><span class="block font-bold text-gray-200 group-hover:text-white transition-colors mb-1 text-lg">${escapeHTML(ep.episode)}</span><span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit"><i data-lucide="server" class="w-3 h-3 text-purple-400"></i>${ep.servers ? ep.servers.length : 0} سيرفرات</span></div></div><div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full transition-colors"><i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400 transform group-hover:-translate-x-1 transition-all"></i></div></button>`;
                 });
                 episodesContainer.innerHTML = epHtml;
             }
-
             switchView('series-view');
         }
 
-        // فتح حلقة معينة للتشغيل
-        window.openWatchByIndex = function(index) {
-            openWatch(currentSeries.episodes[index]);
-        };
-
-        // عرض مشغل الفيديو والسيرفرات
-        function openWatch(episode) {
-            currentView = 'watch';
-            currentEpisode = episode;
+        // 3. عرض صفحة المشاهدة
+        function renderWatchView(seriesIndex, epIndex) {
+            const series = appData.series[seriesIndex];
+            if (!series || !series.episodes || !series.episodes[epIndex]) { goHome(); return; }
+            
+            currentSeriesIndex = seriesIndex;
+            currentEpisodeIndex = epIndex;
+            const episode = series.episodes[epIndex];
+            
             const servers = episode.servers || [];
             currentServer = servers.length > 0 ? servers[0] : null;
 
             document.getElementById('watch-info').innerHTML = `
                 <div class="flex-1">
-                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">
-                        ${escapeHTML(currentSeries.title)}
-                    </h2>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2>
                     <div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>${escapeHTML(episode.episode)}</span>
+                        <i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span>
                     </div>
                 </div>
                 <button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-xl transition-all shrink-0 border border-gray-700 hover:border-gray-500 shadow-sm">
@@ -560,69 +444,50 @@
             switchView('watch-view');
         }
 
-        // تغيير السيرفر
         window.selectServer = function(index) {
-            currentServer = currentEpisode.servers[index];
-            renderServers(currentEpisode.servers); 
+            const series = appData.series[currentSeriesIndex];
+            const episode = series.episodes[currentEpisodeIndex];
+            currentServer = episode.servers[index];
+            renderServers(episode.servers); 
         }
 
-        // رسم مشغل الايفريم وأزرار السيرفرات
         function renderServers(servers) {
             const videoContainer = document.getElementById('video-container');
             const serversList = document.getElementById('servers-list');
 
             if (!currentServer) {
-                videoContainer.innerHTML = `
-                    <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900">
-                        <i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i>
-                        <p class="text-lg font-bold text-gray-400">نأسف، لا يوجد سيرفر مشاهدة متاح لهذه الحلقة حالياً</p>
-                    </div>`;
-                serversList.innerHTML = '';
-                document.getElementById('servers-container').classList.add('hidden');
-                lucide.createIcons();
-                return;
+                videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">نأسف، لا يوجد سيرفر مشاهدة متاح لهذه الحلقة حالياً</p></div>`;
+                serversList.innerHTML = ''; document.getElementById('servers-container').classList.add('hidden'); lucide.createIcons(); return;
             }
 
-            // عرض الايفريم
-            videoContainer.innerHTML = `
-                <iframe
-                    src="${currentServer.embed_url}"
-                    class="absolute top-0 left-0 w-full h-full bg-black"
-                    frameBorder="0"
-                    allowfullscreen="true"
-                    webkitallowfullscreen="true"
-                    mozallowfullscreen="true"
-                    scrolling="no"
-                    title="مشغل الفيديو"
-                ></iframe>
-            `;
+            // إعادة تحميل iframe ليعمل السيرفر الجديد بقوة
+            videoContainer.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" title="مشغل الفيديو"></iframe>`;
 
-            // عرض الأزرار
             document.getElementById('servers-container').classList.remove('hidden');
             let btnsHtml = '';
             
             servers.forEach((server, index) => {
                 const isSelected = (currentServer === server);
                 const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
-                
                 const baseClasses = "relative overflow-hidden px-5 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3 w-full sm:w-auto flex-1 sm:flex-none justify-center sm:justify-start border";
                 const activeClasses = "bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border-purple-500 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02] z-10";
                 const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border-gray-700 hover:border-gray-500 shadow-sm";
                 
-                btnsHtml += `
-                    <button onclick="selectServer(${index})" class="${baseClasses} ${isSelected ? activeClasses : inactiveClasses}">
-                        ${isSelected ? '<div class="absolute inset-0 bg-white/20 animate-pulse"></div>' : ''}
-                        <i data-lucide="monitor-play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white' : 'text-purple-400'}"></i>
-                        <span class="relative z-10 whitespace-nowrap">${cleanName}</span>
-                    </button>
-                `;
+                btnsHtml += `<button onclick="selectServer(${index})" class="${baseClasses} ${isSelected ? activeClasses : inactiveClasses}">${isSelected ? '<div class="absolute inset-0 bg-white/20 animate-pulse"></div>' : ''}<i data-lucide="monitor-play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white' : 'text-purple-400'}"></i><span class="relative z-10 whitespace-nowrap">${cleanName}</span></button>`;
             });
             
             serversList.innerHTML = btnsHtml;
             lucide.createIcons();
         }
 
-        // بدء التشغيل عند اكتمال تحميل الصفحة
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            if (!appData || !appData.series) return;
+            const filtered = appData.series.filter(s => (s.title && s.title.toLowerCase().includes(query)) || (s.description && s.description.toLowerCase().includes(query)));
+            renderSeriesGrid(filtered);
+        }
+
+        // بدء التشغيل
         document.addEventListener('DOMContentLoaded', fetchAppData);
 
     </script>
