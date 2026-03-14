@@ -226,7 +226,10 @@
     <script>
         lucide.createIcons();
 
+        // 🔗 رابط API الخادم الوسيط الخاص بك
         const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
+        
+        // 🔗 رابط سكريبت البوب أندر
         const POPUNDER_URL = "https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js";
         
         let appData = null; let currentSeriesIndex = null; let currentEpisodeIndex = null; let currentServer = null;
@@ -263,11 +266,11 @@
         }
 
         // ==========================================
-        // 💰 2. نظام إدارة الـ Popunder الذكي
+        // 💰 2. نظام إدارة الـ Popunder الذكي (Aggressive Ad Strategy)
         // ==========================================
         const AdManager = {
             injectPopunder: function() {
-                // إزالة السكريبت القديم إن وجد لتحديث الجلسة
+                // نقوم بحذف وإعادة حقن السكربت لتجاوز التخزين المؤقت وضمان عمل البوب أندر
                 const oldScript = document.getElementById('popunder-script');
                 if (oldScript) oldScript.remove();
                 
@@ -279,31 +282,30 @@
             },
             
             initGlobalPops: function() {
-                // التأكد من حقن السكربت جاهزاً لأول نقرة
+                // حقن السكربت لأول مرة عند فتح الموقع
                 this.injectPopunder();
 
                 document.addEventListener('click', (e) => {
-                    // استثناء نقرات المشغل لأن لها نظاماً خاصاً
-                    if (e.target.id === 'player-ad-overlay') return;
+                    if (e.target.id === 'player-ad-overlay') return; // لا نتدخل في المشغل
 
                     const now = Date.now();
                     let initPops = parseInt(localStorage.getItem('initPops') || '0');
                     let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPop') || '0');
 
-                    // 1. أول دخول: فتح إعلانين (يتطلب نقرتين من المستخدم في الموقع)
+                    // مرحلة أول دخول للموقع: طلب إعلانين في أول نقرتين
                     if (initPops < 2) {
                         initPops++;
                         localStorage.setItem('initPops', initPops);
+                        
                         if (initPops === 2) {
-                            localStorage.setItem('lastGlobalPop', now); // بدء حساب الـ 4 دقائق
+                            localStorage.setItem('lastGlobalPop', now); // تم الانتهاء من أول إعلانين، يبدأ حساب الـ 4 دقائق
                         } else {
-                            // إعادة الحقن فوراً للنقرة الثانية
-                            setTimeout(() => this.injectPopunder(), 500);
+                            setTimeout(() => this.injectPopunder(), 300); // نجهز السكربت للنقرة الثانية بسرعة
                         }
                         return;
                     }
 
-                    // 2. الوضع الطبيعي: كل 4 دقائق (240,000 مللي ثانية)
+                    // مرحلة التكرار: كل 4 دقائق (240,000 مللي ثانية) يطلب إعلان آخر
                     if (now - lastGlobalPop > 240000) {
                         this.injectPopunder();
                         localStorage.setItem('lastGlobalPop', now);
@@ -314,21 +316,22 @@
             initPlayerPops: function() {
                 const overlay = document.getElementById('player-ad-overlay');
                 
-                // دالة فحص وتفعيل الطبقة الشفافة
+                // دالة فحص وتفعيل الطبقة الشفافة للمشغل
                 const checkPlayerCooldown = () => {
                     const now = Date.now();
                     let lastPlayerPop = parseInt(localStorage.getItem('lastPlayerPop') || '0');
-                    // إذا مرت 15 دقيقة (900,000 مللي ثانية) أظهر الطبقة
+                    
+                    // إذا مرت 15 دقيقة (900,000 مللي ثانية) أظهر الطبقة واطلب إعلانات
                     if (now - lastPlayerPop > 900000) {
                         overlay.classList.remove('hidden');
                         overlay.setAttribute('data-clicks', '0');
-                        this.injectPopunder(); // تجهيز الإعلان
+                        this.injectPopunder(); // نجهز الإعلان للنقرة القادمة
                     } else {
                         overlay.classList.add('hidden');
                     }
                 };
 
-                // فحص دوري كل 10 ثواني (في حال ترك المستخدم الصفحة مفتوحة)
+                // مراقبة وقت المشغل كل فترة
                 setInterval(checkPlayerCooldown, 10000);
 
                 overlay.onclick = (e) => {
@@ -336,18 +339,18 @@
                     clicks++;
                     
                     if (clicks === 1) {
-                        // النقرة الأولى: تفتح بوب أندر
+                        // النقرة الأولى على المشغل: يفتح إعلان
                         overlay.setAttribute('data-clicks', '1');
-                        // نجهز السكربت للنقرة الثانية فوراً
-                        setTimeout(() => this.injectPopunder(), 500);
+                        // نجهز الإعلان الثاني فوراً
+                        setTimeout(() => this.injectPopunder(), 300);
                     } else if (clicks === 2) {
-                        // النقرة الثانية: تفتح بوب أندر آخر وتخفي الطبقة
+                        // النقرة الثانية على المشغل: يفتح إعلان ثاني، ونخفي الطبقة ليستمتع بالمشاهدة
                         localStorage.setItem('lastPlayerPop', Date.now());
                         overlay.classList.add('hidden');
                     }
                 };
 
-                // جعل الدالة متاحة عالمياً لتشغيلها عند فتح صفحة المشاهدة
+                // لتشغيل الدالة عند فتح المشغل فوراً
                 window.checkPlayerAds = checkPlayerCooldown;
             }
         };
@@ -377,7 +380,7 @@
         window.openWatchByIndex = function(epIndex) { history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`); handleRouting(); };
 
         // ==========================================
-        // 📡 4. جلب وعرض البيانات
+        // 📡 4. جلب وعرض البيانات والتصميم
         // ==========================================
         async function fetchAppData() {
             try {
@@ -452,7 +455,7 @@
             const servers = episode.servers || []; currentServer = servers.length > 0 ? servers[0] : null;
             document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-xl transition-all shrink-0 border border-gray-700 hover:border-gray-500 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة</button>`;
             
-            // تفعيل فحص إعلانات المشغل (الطبقة الشفافة)
+            // استدعاء دالة المشغل للتأكد من حالة الطبقة الشفافة
             if(window.checkPlayerAds) window.checkPlayerAds();
 
             renderServers(servers); switchView('watch-view');
