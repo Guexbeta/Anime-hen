@@ -46,33 +46,33 @@
         input:focus { outline: none; }
         
         /* تأثيرات شاشة منع الإعلانات */
-        .blur-content { filter: blur(8px) brightness(0.6); pointer-events: none; user-select: none; }
+        .blur-content { filter: blur(10px) brightness(0.4); pointer-events: none; user-select: none; }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- 🚫 شاشة كاشف مانع الإعلانات (مخفية افتراضياً) -->
+    <!-- 🚫 شاشة كاشف مانع الإعلانات -->
     <div id="adblock-modal" class="hidden-view fixed inset-0 z-[9999] bg-gray-950/90 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-purple-500/30 p-8 rounded-3xl max-w-lg w-full shadow-2xl shadow-purple-900/20 text-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent"></div>
+        <div class="bg-gray-900 border border-red-500/30 p-8 rounded-3xl max-w-lg w-full shadow-2xl shadow-red-900/20 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent"></div>
             <div class="relative z-10">
                 <div class="bg-red-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-red-500/20">
                     <i data-lucide="shield-alert" class="w-12 h-12 text-red-500"></i>
                 </div>
-                <h2 class="text-3xl font-black text-white mb-4">عذراً، يبدو أنك تستخدم مانع إعلانات!</h2>
+                <h2 class="text-3xl font-black text-white mb-4">مانع الإعلانات مفعل!</h2>
                 <p class="text-gray-400 mb-6 leading-relaxed text-lg">
-                    موقعنا مجاني بالكامل ونعتمد على الإعلانات لتغطية تكاليف السيرفرات وتوفير الحلقات الجديدة. 
-                    <br><span class="text-white font-bold mt-2 block">يرجى تعطيل مانع الإعلانات (Adblocker) لمواصلة المشاهدة.</span>
+                    موقعنا مجاني بالكامل ونعتمد على الإعلانات لتوفير الحلقات والسيرفرات السريعة لك. 
+                    <br><span class="text-white font-bold mt-2 block">يرجى إيقاف مانع الإعلانات (Adblocker) أو تعطيل مانع الـ DNS لمواصلة المشاهدة.</span>
                 </p>
-                <button onclick="location.reload()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg hover:shadow-purple-500/25">
+                <button onclick="location.reload()" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg hover:shadow-red-500/25">
                     <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-                    لقد قمت بتعطيله، إعادة تحميل الصفحة
+                    لقد قمت بإيقافه، أعد تحميل الصفحة
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- حاوية محتوى الموقع (يتم عمل ضبابية لها عند اكتشاف Adblock) -->
+    <!-- حاوية محتوى الموقع -->
     <div id="main-content-wrapper" class="flex flex-col min-h-screen w-full transition-all duration-500">
         
         <!-- شريط التنقل العلوي -->
@@ -111,7 +111,7 @@
                     <i data-lucide="loader-2" class="w-16 h-16 text-purple-500 animate-spin mb-6 relative z-10"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 animate-pulse">
-                    جاري الاتصال بالخادم وجلب البيانات...
+                    جاري الاتصال بالسيرفرات...
                 </h2>
             </div>
 
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- الصفحة الرئيسية (قائمة الأنمي) -->
+            <!-- الصفحة الرئيسية -->
             <div id="home-view" class="hidden-view fade-in">
                 <div class="text-center mb-12 relative z-10">
                     <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
@@ -144,12 +144,11 @@
                         <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                             <i data-lucide="search" class="h-5 w-5 text-gray-400 group-focus-within:text-purple-500 transition-colors"></i>
                         </div>
-                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث عن اسم الأنمي أو الوصف...">
+                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث عن اسم الأنمي...">
                     </div>
                 </div>
 
                 <div id="stats-container" class="flex justify-between items-center text-sm font-medium text-gray-400 mb-6 border-b border-gray-800/50 pb-4"></div>
-
                 <div id="series-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6"></div>
                 
                 <div id="no-results" class="hidden-view text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800/50 backdrop-blur-sm">
@@ -158,7 +157,7 @@
                 </div>
             </div>
 
-            <!-- صفحة تفاصيل الأنمي -->
+            <!-- صفحة التفاصيل -->
             <div id="series-view" class="hidden-view slide-up">
                 <div id="series-hero" class="relative w-full rounded-3xl overflow-hidden mb-10 shadow-2xl border border-gray-800 mt-4 bg-gray-900"></div>
 
@@ -175,13 +174,18 @@
             <div id="watch-view" class="hidden-view zoom-in max-w-5xl mx-auto">
                 <div id="watch-info" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-900 p-4 rounded-2xl border border-gray-800"></div>
 
-                <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5 group">
-                    <div id="video-container" class="w-full h-full"></div>
+                <!-- المشغل مع طبقة الإعلانات الشفافة -->
+                <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5">
+                    <div id="video-container" class="w-full h-full relative">
+                        <!-- يتم حقن الايفريم هنا بواسطة JS -->
+                    </div>
+                    <!-- الطبقة الشفافة لحماية المشغل (تفتح الإعلانات) -->
+                    <div id="player-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden"></div>
                 </div>
 
                 <!-- 💰 إعلان البانر 300x250 -->
                 <div class="w-full flex justify-center items-center mb-8 overflow-hidden ad-container">
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative">
                         <script type="text/javascript">
                             atOptions = {
                                 'key' : '7fcab410df2fca990ac4cab530dbaa09',
@@ -214,107 +218,143 @@
                     <span class="font-bold text-white text-lg">أنمي ستريم</span>
                     <span class="text-sm">&copy; 2026</span>
                 </div>
-                <p class="text-gray-600 text-sm text-center md:text-right">
-                    موقع مشاهدة الأنمي الأسرع والأفضل. جميع الحقوق محفوظة.
-                </p>
             </div>
         </footer>
     </div>
 
+    <!-- 🧠 السكريبت الشامل (تحكم ذكي بالإعلانات، الحماية، والتوجيه) -->
     <script>
         lucide.createIcons();
 
         const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
+        const POPUNDER_URL = "https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js";
+        
         let appData = null; let currentSeriesIndex = null; let currentEpisodeIndex = null; let currentServer = null;
+
+        const escapeHTML = (str) => { if (!str) return ''; return str.toString().replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])); };
+        function handleImageError(img) { img.onerror = null; img.style.display = 'none'; img.nextElementSibling.classList.remove('hidden'); }
 
         // ==========================================
         // 🛡️ 1. نظام كشف مانع الإعلانات (Adblock Detector)
         // ==========================================
         async function detectAdBlock() {
-            let adBlockEnabled = false;
-
-            // الفحص الأول: فحص الـ DOM (الإضافات العادية مثل Adblock Plus)
+            let blocked = false;
+            // فحص الإضافات (DOM)
             const bait = document.createElement('div');
-            // أسماء كلاسات شائعة تقوم إضافات الحظر بإخفائها
             bait.className = 'ad-banner ads adbox doubleclick ad-slot';
-            bait.style.height = '1px'; bait.style.width = '1px';
-            bait.style.position = 'absolute'; bait.style.left = '-999px';
+            bait.style.height = '1px'; bait.style.width = '1px'; bait.style.position = 'absolute'; bait.style.left = '-999px';
             document.body.appendChild(bait);
-
-            // ننتظر لحظة صغيرة لتأخذ الإضافات وقتها في إخفاء العنصر
             await new Promise(r => setTimeout(r, 100));
-
-            // إذا أصبح العنصر مخفياً، إذن هناك Adblock
-            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') {
-                adBlockEnabled = true;
-            }
+            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') blocked = true;
             bait.remove();
 
-            // الفحص الثاني: فحص الشبكة / الـ DNS (أجهزة حظر DNS مثل AdGuard أو متصفح Brave)
-            if (!adBlockEnabled) {
+            // فحص الشبكة (DNS/Brave)
+            if (!blocked) {
                 try {
-                    // محاولة جلب رابط إعلان معروف
-                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
-                        method: 'HEAD',
-                        mode: 'no-cors',
-                        cache: 'no-store'
-                    });
-                } catch (e) {
-                    // إذا فشل الاتصال، فهذا يعني أن النطاق محظور من الشبكة أو الـ DNS
-                    adBlockEnabled = true;
-                }
+                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors', cache: 'no-store' });
+                } catch (e) { blocked = true; }
             }
 
-            // تطبيق الإجراء إذا تم اكتشاف الحظر
-            if (adBlockEnabled) {
+            if (blocked) {
                 document.getElementById('adblock-modal').classList.remove('hidden-view');
                 document.getElementById('main-content-wrapper').classList.add('blur-content');
-                // منع التمرير
                 document.body.style.overflow = 'hidden';
             }
         }
 
         // ==========================================
-        // 💰 2. نظام جدولة الـ Popunder (كل 4 دقائق)
+        // 💰 2. نظام إدارة الـ Popunder الذكي
         // ==========================================
-        function initPopunderSystem() {
-            // وقت الانتظار بالملي ثانية (4 دقائق = 4 * 60 * 1000)
-            const POP_COOLDOWN = 240000; 
-            
-            // حقن السكريبت إذا مر الوقت المسموح
-            const injectPopunder = () => {
+        const AdManager = {
+            injectPopunder: function() {
+                // إزالة السكريبت القديم إن وجد لتحديث الجلسة
+                const oldScript = document.getElementById('popunder-script');
+                if (oldScript) oldScript.remove();
+                
                 const script = document.createElement('script');
-                script.src = "https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js";
+                script.id = 'popunder-script';
+                script.src = POPUNDER_URL;
                 script.setAttribute('data-cfasync', 'false');
                 document.head.appendChild(script);
-            };
+            },
+            
+            initGlobalPops: function() {
+                // التأكد من حقن السكربت جاهزاً لأول نقرة
+                this.injectPopunder();
 
-            const handleUserInteraction = () => {
-                const lastPopTime = localStorage.getItem('lastAdsterraPop');
-                const currentTime = new Date().getTime();
+                document.addEventListener('click', (e) => {
+                    // استثناء نقرات المشغل لأن لها نظاماً خاصاً
+                    if (e.target.id === 'player-ad-overlay') return;
 
-                // إذا لم يكن هناك ضغطة سابقة، أو مرت 4 دقائق
-                if (!lastPopTime || (currentTime - parseInt(lastPopTime)) > POP_COOLDOWN) {
-                    injectPopunder();
-                    // تسجيل وقت آخر نقرة (أو عرض)
-                    localStorage.setItem('lastAdsterraPop', currentTime.toString());
-                }
-            };
+                    const now = Date.now();
+                    let initPops = parseInt(localStorage.getItem('initPops') || '0');
+                    let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPop') || '0');
 
-            // نربط الحدث بأول نقرة للمستخدم في أي مكان في الموقع
-            document.addEventListener('click', () => {
-                // نستخدم setTimeout لعدم إبطاء ضغطة المستخدم الأساسية
-                setTimeout(handleUserInteraction, 100);
-            });
-        }
+                    // 1. أول دخول: فتح إعلانين (يتطلب نقرتين من المستخدم في الموقع)
+                    if (initPops < 2) {
+                        initPops++;
+                        localStorage.setItem('initPops', initPops);
+                        if (initPops === 2) {
+                            localStorage.setItem('lastGlobalPop', now); // بدء حساب الـ 4 دقائق
+                        } else {
+                            // إعادة الحقن فوراً للنقرة الثانية
+                            setTimeout(() => this.injectPopunder(), 500);
+                        }
+                        return;
+                    }
+
+                    // 2. الوضع الطبيعي: كل 4 دقائق (240,000 مللي ثانية)
+                    if (now - lastGlobalPop > 240000) {
+                        this.injectPopunder();
+                        localStorage.setItem('lastGlobalPop', now);
+                    }
+                });
+            },
+
+            initPlayerPops: function() {
+                const overlay = document.getElementById('player-ad-overlay');
+                
+                // دالة فحص وتفعيل الطبقة الشفافة
+                const checkPlayerCooldown = () => {
+                    const now = Date.now();
+                    let lastPlayerPop = parseInt(localStorage.getItem('lastPlayerPop') || '0');
+                    // إذا مرت 15 دقيقة (900,000 مللي ثانية) أظهر الطبقة
+                    if (now - lastPlayerPop > 900000) {
+                        overlay.classList.remove('hidden');
+                        overlay.setAttribute('data-clicks', '0');
+                        this.injectPopunder(); // تجهيز الإعلان
+                    } else {
+                        overlay.classList.add('hidden');
+                    }
+                };
+
+                // فحص دوري كل 10 ثواني (في حال ترك المستخدم الصفحة مفتوحة)
+                setInterval(checkPlayerCooldown, 10000);
+
+                overlay.onclick = (e) => {
+                    let clicks = parseInt(overlay.getAttribute('data-clicks') || '0');
+                    clicks++;
+                    
+                    if (clicks === 1) {
+                        // النقرة الأولى: تفتح بوب أندر
+                        overlay.setAttribute('data-clicks', '1');
+                        // نجهز السكربت للنقرة الثانية فوراً
+                        setTimeout(() => this.injectPopunder(), 500);
+                    } else if (clicks === 2) {
+                        // النقرة الثانية: تفتح بوب أندر آخر وتخفي الطبقة
+                        localStorage.setItem('lastPlayerPop', Date.now());
+                        overlay.classList.add('hidden');
+                    }
+                };
+
+                // جعل الدالة متاحة عالمياً لتشغيلها عند فتح صفحة المشاهدة
+                window.checkPlayerAds = checkPlayerCooldown;
+            }
+        };
 
         // ==========================================
-        // 🚀 نظام التوجيه والصفحات (Router) وتطبيق الموقع
+        // 🚀 3. نظام التوجيه والصفحات (Router)
         // ==========================================
-
-        const escapeHTML = (str) => { if (!str) return ''; return str.toString().replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])); };
-        function handleImageError(img) { img.onerror = null; img.style.display = 'none'; img.nextElementSibling.classList.remove('hidden'); }
-
         function handleRouting() {
             if (!appData) return;
             const urlParams = new URLSearchParams(window.location.search);
@@ -331,16 +371,18 @@
         }
 
         window.addEventListener('popstate', () => handleRouting());
-
         function goHome() { history.pushState(null, '', window.location.pathname); handleRouting(); }
         function navigateBack() { if(window.history.length > 1) { history.back(); } else { goHome(); } }
         window.openSeriesByIndex = function(index) { history.pushState(null, '', `?series=${index}`); handleRouting(); };
         window.openWatchByIndex = function(epIndex) { history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`); handleRouting(); };
 
+        // ==========================================
+        // 📡 4. جلب وعرض البيانات
+        // ==========================================
         async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('لا يمكن الوصول إلى خادم البيانات.');
+                if (!response.ok) throw new Error('فشل الاتصال بالخادم.');
                 appData = await response.json();
                 renderHomeStats(); handleRouting(); 
             } catch (error) {
@@ -409,6 +451,10 @@
             currentSeriesIndex = seriesIndex; currentEpisodeIndex = epIndex; const episode = series.episodes[epIndex];
             const servers = episode.servers || []; currentServer = servers.length > 0 ? servers[0] : null;
             document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-xl transition-all shrink-0 border border-gray-700 hover:border-gray-500 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة</button>`;
+            
+            // تفعيل فحص إعلانات المشغل (الطبقة الشفافة)
+            if(window.checkPlayerAds) window.checkPlayerAds();
+
             renderServers(servers); switchView('watch-view');
         }
 
@@ -419,8 +465,11 @@
 
         function renderServers(servers) {
             const videoContainer = document.getElementById('video-container'); const serversList = document.getElementById('servers-list');
-            if (!currentServer) { videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">نأسف، لا يوجد سيرفر مشاهدة متاح لهذه الحلقة حالياً</p></div>`; serversList.innerHTML = ''; document.getElementById('servers-container').classList.add('hidden'); lucide.createIcons(); return; }
+            if (!currentServer) { videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">لا يوجد سيرفر مشاهدة متاح لهذه الحلقة</p></div>`; serversList.innerHTML = ''; return; }
+            
+            // نحتفظ بالطبقة الشفافة (player-ad-overlay) ونغير الايفريم فقط
             videoContainer.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" title="مشغل الفيديو"></iframe>`;
+            
             document.getElementById('servers-container').classList.remove('hidden'); let btnsHtml = '';
             servers.forEach((server, index) => {
                 const isSelected = (currentServer === server); const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
@@ -437,12 +486,13 @@
         }
 
         // ==========================================
-        // 🚀 بدء التشغيل وربط الأنظمة
+        // 🚀 بدء التهيئة
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            fetchAppData();        // جلب البيانات الأساسية
-            detectAdBlock();       // تشغيل فحص مانع الإعلانات
-            initPopunderSystem();  // تهيئة نظام إعلانات البوب أندر
+            fetchAppData(); 
+            detectAdBlock(); 
+            AdManager.initGlobalPops(); 
+            AdManager.initPlayerPops();
         });
 
     </script>
