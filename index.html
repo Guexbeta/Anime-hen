@@ -34,6 +34,9 @@
     <!-- أيقونات Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- 💰 إعلان البوب أندر (Popunder) - يفتح في الخلفية ويجلب أرباحاً عالية -->
+    <script src="https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js"></script>
+
     <style>
         /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 8px; }
@@ -179,9 +182,25 @@
                 <!-- يضاف بواسطة JS -->
             </div>
 
-            <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-8 ring-1 ring-white/5 group">
+            <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5 group">
                 <div id="video-container" class="w-full h-full">
                     <!-- Iframe يضاف هنا بواسطة JS -->
+                </div>
+            </div>
+
+            <!-- 💰 مساحة إعلانية 2: إعلان البانر أسفل المشغل مباشرة (متجاوب ومركزي) -->
+            <div class="w-full flex justify-center items-center mb-8 overflow-hidden">
+                <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '7fcab410df2fca990ac4cab530dbaa09',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/7fcab410df2fca990ac4cab530dbaa09/invoke.js"></script>
                 </div>
             </div>
 
@@ -216,7 +235,7 @@
         </div>
     </footer>
 
-    <!-- سكريبت التطبيق -->
+    <!-- سكريبت التطبيق (منظم ومقروء بالكامل) -->
     <script>
         // تفعيل أيقونات Lucide
         lucide.createIcons();
@@ -255,7 +274,9 @@
         async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('لا يمكن الوصول إلى خادم البيانات.');
+                if (!response.ok) {
+                    throw new Error('لا يمكن الوصول إلى خادم البيانات.');
+                }
                 appData = await response.json();
                 
                 renderHomeStats();
@@ -270,11 +291,16 @@
         // التنقل بين الشاشات
         function switchView(viewId) {
             const views = ['loading-view', 'error-view', 'home-view', 'series-view', 'watch-view'];
+            
+            // إخفاء جميع الشاشات
             views.forEach(id => {
                 document.getElementById(id).classList.add('hidden-view');
             });
+            
+            // إظهار الشاشة المطلوبة
             document.getElementById(viewId).classList.remove('hidden-view');
             
+            // التعامل مع زر الرجوع
             const backBtn = document.getElementById('back-btn');
             if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') {
                 backBtn.classList.add('hidden');
@@ -284,6 +310,7 @@
                 backBtn.classList.add('flex');
             }
 
+            // الصعود لأعلى الصفحة بسلاسة
             window.scrollTo({ top: 0, behavior: 'smooth' });
             lucide.createIcons();
         }
@@ -296,7 +323,9 @@
             
             // إعادة تعيين شريط البحث وإظهار كل الشبكة
             const searchInput = document.getElementById('search-input');
-            if(searchInput) searchInput.value = '';
+            if(searchInput) {
+                searchInput.value = '';
+            }
             
             if(appData && appData.series) {
                 renderSeriesGrid(appData.series);
@@ -571,6 +600,7 @@
             // عرض الأزرار
             document.getElementById('servers-container').classList.remove('hidden');
             let btnsHtml = '';
+            
             servers.forEach((server, index) => {
                 const isSelected = (currentServer === server);
                 const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
