@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أنمي ستريم | المشاهدة الممتعة</title>
-    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات وحلقات الأنمي بجودة عالية.">
+    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات وحلقات الأنمي بجودة عالية ومترجمة.">
+    <meta name="theme-color" content="#030712">
     
-    <!-- خطوط جوجل -->
+    <!-- خطوط جوجل (Cairo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -28,11 +29,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #030712; }
         ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #6d28d9; }
 
+        /* حركات الانيميشن الأساسية */
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         .slide-up { animation: slideUp 0.4s ease-out; }
         .zoom-in { animation: zoomIn 0.3s ease-out; }
@@ -41,30 +44,31 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
+        /* فئات مساعدة */
         .hidden-view { display: none !important; }
         .fallback-image-bg { background: linear-gradient(to bottom right, #1f2937, #111827); display: flex; align-items: center; justify-content: center; }
         input:focus { outline: none; }
         
         /* تأثيرات شاشة منع الإعلانات */
-        .blur-content { filter: blur(10px) brightness(0.4); pointer-events: none; user-select: none; }
+        .blur-content { filter: blur(12px) brightness(0.3); pointer-events: none; user-select: none; }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- 🚫 شاشة كاشف مانع الإعلانات -->
-    <div id="adblock-modal" class="hidden-view fixed inset-0 z-[9999] bg-gray-950/90 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-red-500/30 p-8 rounded-3xl max-w-lg w-full shadow-2xl shadow-red-900/20 text-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent"></div>
+    <!-- 🚫 شاشة كاشف مانع الإعلانات الصارمة -->
+    <div id="adblock-modal" class="hidden-view fixed inset-0 z-[9999] bg-gray-950/90 backdrop-blur-lg flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-red-500/30 p-8 sm:p-10 rounded-3xl max-w-lg w-full shadow-[0_0_50px_rgba(239,68,68,0.15)] text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent"></div>
             <div class="relative z-10">
                 <div class="bg-red-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-red-500/20">
                     <i data-lucide="shield-alert" class="w-12 h-12 text-red-500"></i>
                 </div>
-                <h2 class="text-3xl font-black text-white mb-4">مانع الإعلانات مفعل!</h2>
-                <p class="text-gray-400 mb-6 leading-relaxed text-lg">
-                    موقعنا مجاني بالكامل ونعتمد على الإعلانات لتوفير الحلقات والسيرفرات السريعة لك. 
-                    <br><span class="text-white font-bold mt-2 block">يرجى إيقاف مانع الإعلانات (Adblocker) أو تعطيل مانع الـ DNS لمواصلة المشاهدة.</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">مانع الإعلانات مفعل!</h2>
+                <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                    موقعنا مجاني بالكامل ونعتمد على الإعلانات لتوفير السيرفرات السريعة والحلقات الجديدة. 
+                    <br><span class="text-red-400 font-bold mt-2 block">يرجى إيقاف مانع الإعلانات (Adblocker) أو مانع الـ DNS لمواصلة المشاهدة.</span>
                 </p>
-                <button onclick="location.reload()" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg hover:shadow-red-500/25">
+                <button onclick="location.reload()" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg hover:shadow-red-500/25 text-lg">
                     <i data-lucide="refresh-cw" class="w-5 h-5"></i>
                     لقد قمت بإيقافه، أعد تحميل الصفحة
                 </button>
@@ -72,10 +76,10 @@
         </div>
     </div>
 
-    <!-- حاوية محتوى الموقع -->
+    <!-- حاوية المحتوى الرئيسي -->
     <div id="main-content-wrapper" class="flex flex-col min-h-screen w-full transition-all duration-500">
         
-        <!-- شريط التنقل العلوي -->
+        <!-- شريط التنقل -->
         <nav class="fixed w-full top-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50 shadow-lg transition-all">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -101,7 +105,6 @@
             </div>
         </nav>
 
-        <!-- المحتوى الرئيسي -->
         <main class="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative">
             
             <!-- شاشة التحميل -->
@@ -130,7 +133,7 @@
                 </div>
             </div>
 
-            <!-- الصفحة الرئيسية -->
+            <!-- الصفحة الرئيسية (الكتالوج) -->
             <div id="home-view" class="hidden-view fade-in">
                 <div class="text-center mb-12 relative z-10">
                     <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
@@ -144,7 +147,7 @@
                         <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                             <i data-lucide="search" class="h-5 w-5 text-gray-400 group-focus-within:text-purple-500 transition-colors"></i>
                         </div>
-                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث عن اسم الأنمي...">
+                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث عن اسم الأنمي أو الوصف...">
                     </div>
                 </div>
 
@@ -157,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- صفحة التفاصيل -->
+            <!-- صفحة تفاصيل الأنمي -->
             <div id="series-view" class="hidden-view slide-up">
                 <div id="series-hero" class="relative w-full rounded-3xl overflow-hidden mb-10 shadow-2xl border border-gray-800 mt-4 bg-gray-900"></div>
 
@@ -170,22 +173,28 @@
                 </div>
             </div>
 
-            <!-- صفحة المشاهدة -->
+            <!-- صفحة المشاهدة (الفيديو + الإعلانات) -->
             <div id="watch-view" class="hidden-view zoom-in max-w-5xl mx-auto">
                 <div id="watch-info" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-900 p-4 rounded-2xl border border-gray-800"></div>
 
-                <!-- المشغل مع طبقة الإعلانات الشفافة -->
+                <!-- المشغل مع طبقة الإعلانات الشفافة القوية -->
                 <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5">
                     <div id="video-container" class="w-full h-full relative">
-                        <!-- يتم حقن الايفريم هنا بواسطة JS -->
+                        <!-- يُحقن الـ iframe هنا -->
                     </div>
-                    <!-- الطبقة الشفافة لحماية المشغل (تفتح الإعلانات) -->
-                    <div id="player-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden"></div>
+                    <!-- الطبقة الشفافة للمشغل (تجبر المستخدم على نقر الإعلان قبل المشاهدة) -->
+                    <div id="player-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden flex items-center justify-center">
+                        <!-- أيقونة تشغيل وهمية لجذب النقرة -->
+                        <div class="bg-purple-600/80 p-5 rounded-full shadow-[0_0_30px_rgba(147,51,234,0.6)] animate-pulse pointer-events-none">
+                            <i data-lucide="play" class="w-10 h-10 text-white ml-1 fill-current"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 💰 إعلان البانر 300x250 -->
+                <!-- 💰 إعلان البانر 300x250 المستمر -->
                 <div class="w-full flex justify-center items-center mb-8 overflow-hidden ad-container">
-                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative min-w-[300px] min-h-[250px] flex items-center justify-center fallback-image-bg">
+                        <span class="absolute text-gray-700 text-sm font-bold opacity-50">إعلان</span>
                         <script type="text/javascript">
                             atOptions = {
                                 'key' : '7fcab410df2fca990ac4cab530dbaa09',
@@ -218,46 +227,62 @@
                     <span class="font-bold text-white text-lg">أنمي ستريم</span>
                     <span class="text-sm">&copy; 2026</span>
                 </div>
+                <p class="text-gray-600 text-sm">جميع الحقوق محفوظة لموقع أنمي ستريم.</p>
             </div>
         </footer>
     </div>
 
-    <!-- 🧠 السكريبت الشامل (تحكم ذكي بالإعلانات، الحماية، والتوجيه) -->
+    <!-- 🧠 السكريبت الشامل للموقع -->
     <script>
+        // تفعيل الأيقونات
         lucide.createIcons();
 
-        // 🔗 رابط API الخادم الوسيط الخاص بك
+        // 🔗 الروابط الأساسية
         const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
-        
-        // 🔗 رابط سكريبت البوب أندر
         const POPUNDER_URL = "https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js";
         
-        let appData = null; let currentSeriesIndex = null; let currentEpisodeIndex = null; let currentServer = null;
+        let appData = null; 
+        let currentSeriesIndex = null; 
+        let currentEpisodeIndex = null; 
+        let currentServer = null;
 
+        // دوال الحماية والمساعدة
         const escapeHTML = (str) => { if (!str) return ''; return str.toString().replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])); };
         function handleImageError(img) { img.onerror = null; img.style.display = 'none'; img.nextElementSibling.classList.remove('hidden'); }
 
-        // ==========================================
-        // 🛡️ 1. نظام كشف مانع الإعلانات (Adblock Detector)
-        // ==========================================
+        // ====================================================================
+        // 🛡️ 1. نظام كشف مانع الإعلانات (Adblock Detector) الشامل
+        // ====================================================================
         async function detectAdBlock() {
             let blocked = false;
-            // فحص الإضافات (DOM)
+            
+            // الفحص الأول: عناصر الـ DOM (إضافات المتصفح العادية)
             const bait = document.createElement('div');
             bait.className = 'ad-banner ads adbox doubleclick ad-slot';
             bait.style.height = '1px'; bait.style.width = '1px'; bait.style.position = 'absolute'; bait.style.left = '-999px';
             document.body.appendChild(bait);
-            await new Promise(r => setTimeout(r, 100));
-            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') blocked = true;
+            
+            await new Promise(r => setTimeout(r, 150));
+            
+            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') {
+                blocked = true;
+            }
             bait.remove();
 
-            // فحص الشبكة (DNS/Brave)
+            // الفحص الثاني: فحص الاتصال بالشبكة (أجهزة حظر DNS والمتصفحات القوية مثل Brave)
             if (!blocked) {
                 try {
-                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors', cache: 'no-store' });
-                } catch (e) { blocked = true; }
+                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { 
+                        method: 'HEAD', 
+                        mode: 'no-cors', 
+                        cache: 'no-store' 
+                    });
+                } catch (e) { 
+                    blocked = true; 
+                }
             }
 
+            // تطبيق إجراءات الحظر على الموقع
             if (blocked) {
                 document.getElementById('adblock-modal').classList.remove('hidden-view');
                 document.getElementById('main-content-wrapper').classList.add('blur-content');
@@ -265,131 +290,152 @@
             }
         }
 
-        // ==========================================
-        // 💰 2. نظام إدارة الـ Popunder الذكي (Aggressive Ad Strategy)
-        // ==========================================
+        // ====================================================================
+        // 💰 2. مدير الإعلانات اللانهائي (Infinite Ad Manager)
+        // ====================================================================
         const AdManager = {
-            injectPopunder: function() {
-                // نقوم بحذف وإعادة حقن السكربت لتجاوز التخزين المؤقت وضمان عمل البوب أندر
-                const oldScript = document.getElementById('popunder-script');
-                if (oldScript) oldScript.remove();
+            // دالة حقن البوب أندر
+            injectPop: function() {
+                const oldScript = document.getElementById('adsterra-pop-script');
+                if (oldScript) oldScript.remove(); // إزالة القديم لضمان التنفيذ الجديد
                 
                 const script = document.createElement('script');
-                script.id = 'popunder-script';
+                script.id = 'adsterra-pop-script';
                 script.src = POPUNDER_URL;
                 script.setAttribute('data-cfasync', 'false');
                 document.head.appendChild(script);
             },
-            
-            initGlobalPops: function() {
-                // حقن السكربت لأول مرة عند فتح الموقع
-                this.injectPopunder();
+
+            // أ. نظام الموقع العام (الروابط والضغطات العادية)
+            initGlobalSystem: function() {
+                const GLOBAL_COOLDOWN = 4 * 60 * 1000; // 4 دقائق
+                this.injectPop(); // نجهز الإعلان لأول ضغطة فور دخول الموقع
 
                 document.addEventListener('click', (e) => {
-                    if (e.target.id === 'player-ad-overlay') return; // لا نتدخل في المشغل
+                    // نتجاهل الضغط إذا كان على طبقة المشغل (لها نظامها الخاص)
+                    if (e.target.closest('#player-ad-overlay')) return;
 
                     const now = Date.now();
-                    let initPops = parseInt(localStorage.getItem('initPops') || '0');
-                    let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPop') || '0');
+                    let initPops = parseInt(localStorage.getItem('globalInitPops') || '0');
+                    let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPopTime') || '0');
 
-                    // مرحلة أول دخول للموقع: طلب إعلانين في أول نقرتين
+                    // المرحلة الأولى: المستخدم الجديد (إعلانين في أول نقرتين)
                     if (initPops < 2) {
                         initPops++;
-                        localStorage.setItem('initPops', initPops);
+                        localStorage.setItem('globalInitPops', initPops.toString());
                         
                         if (initPops === 2) {
-                            localStorage.setItem('lastGlobalPop', now); // تم الانتهاء من أول إعلانين، يبدأ حساب الـ 4 دقائق
+                            localStorage.setItem('lastGlobalPopTime', now.toString()); // انتهت المرحلة الأولى، يبدأ العداد
                         } else {
-                            setTimeout(() => this.injectPopunder(), 300); // نجهز السكربت للنقرة الثانية بسرعة
+                            setTimeout(() => this.injectPop(), 300); // نجهز السكربت للنقرة الثانية فوراً
                         }
                         return;
                     }
 
-                    // مرحلة التكرار: كل 4 دقائق (240,000 مللي ثانية) يطلب إعلان آخر
-                    if (now - lastGlobalPop > 240000) {
-                        this.injectPopunder();
-                        localStorage.setItem('lastGlobalPop', now);
+                    // المرحلة اللانهائية: هل مر 4 دقائق منذ آخر ظهور عام؟
+                    if (now - lastGlobalPop >= GLOBAL_COOLDOWN) {
+                        this.injectPop();
+                        localStorage.setItem('lastGlobalPopTime', now.toString());
+                        setTimeout(() => this.injectPop(), 300); // نجهز للمرة القادمة
                     }
                 });
             },
 
-            initPlayerPops: function() {
+            // ب. نظام طبقة المشغل (إجبار الإعلان قبل المشاهدة)
+            initPlayerSystem: function() {
+                const PLAYER_COOLDOWN = 15 * 60 * 1000; // 15 دقيقة
                 const overlay = document.getElementById('player-ad-overlay');
                 
-                // دالة فحص وتفعيل الطبقة الشفافة للمشغل
-                const checkPlayerCooldown = () => {
+                const checkOverlayStatus = () => {
                     const now = Date.now();
-                    let lastPlayerPop = parseInt(localStorage.getItem('lastPlayerPop') || '0');
+                    let lastPlayerPop = parseInt(localStorage.getItem('lastPlayerPopTime') || '0');
                     
-                    // إذا مرت 15 دقيقة (900,000 مللي ثانية) أظهر الطبقة واطلب إعلانات
-                    if (now - lastPlayerPop > 900000) {
+                    // إظهار الطبقة إذا مرت 15 دقيقة أو إذا كانت أول مرة للمشغل
+                    if (lastPlayerPop === 0 || (now - lastPlayerPop >= PLAYER_COOLDOWN)) {
                         overlay.classList.remove('hidden');
                         overlay.setAttribute('data-clicks', '0');
-                        this.injectPopunder(); // نجهز الإعلان للنقرة القادمة
+                        this.injectPop(); // نجهز الإعلان
                     } else {
                         overlay.classList.add('hidden');
                     }
                 };
 
-                // مراقبة وقت المشغل كل فترة
-                setInterval(checkPlayerCooldown, 10000);
+                // مراقبة حية لفتح الطبقة إذا انتهى الوقت والمستخدم ما زال يتصفح
+                setInterval(checkOverlayStatus, 10000);
 
-                overlay.onclick = (e) => {
+                overlay.addEventListener('click', (e) => {
+                    e.stopPropagation(); // منع اختلاط النقرة مع النظام العام
+                    
                     let clicks = parseInt(overlay.getAttribute('data-clicks') || '0');
                     clicks++;
                     
                     if (clicks === 1) {
-                        // النقرة الأولى على المشغل: يفتح إعلان
                         overlay.setAttribute('data-clicks', '1');
-                        // نجهز الإعلان الثاني فوراً
-                        setTimeout(() => this.injectPopunder(), 300);
-                    } else if (clicks === 2) {
-                        // النقرة الثانية على المشغل: يفتح إعلان ثاني، ونخفي الطبقة ليستمتع بالمشاهدة
-                        localStorage.setItem('lastPlayerPop', Date.now());
-                        overlay.classList.add('hidden');
+                        setTimeout(() => this.injectPop(), 300); // تجهيز الإعلان الثاني فوراً
+                    } else if (clicks >= 2) {
+                        localStorage.setItem('lastPlayerPopTime', Date.now().toString());
+                        overlay.classList.add('hidden'); // إخفاء الطبقة والسماح بالمشاهدة
                     }
-                };
+                });
 
-                // لتشغيل الدالة عند فتح المشغل فوراً
-                window.checkPlayerAds = checkPlayerCooldown;
+                // دالة لتشغيل الفحص يدوياً عند دخول صفحة الفيديو
+                window.refreshPlayerAds = checkOverlayStatus;
             }
         };
 
-        // ==========================================
-        // 🚀 3. نظام التوجيه والصفحات (Router)
-        // ==========================================
+        // ====================================================================
+        // 🚀 3. نظام التوجيه الذكي (History API Router)
+        // ====================================================================
         function handleRouting() {
             if (!appData) return;
             const urlParams = new URLSearchParams(window.location.search);
             const seriesParam = urlParams.get('series');
             const watchParam = urlParams.get('watch');
 
-            if (seriesParam !== null && watchParam !== null) {
-                renderWatchView(parseInt(seriesParam), parseInt(watchParam));
-            } else if (seriesParam !== null) {
-                renderSeriesView(parseInt(seriesParam));
-            } else {
-                renderHomeView();
+            // التوجيه للصفحات بناءً على الرابط
+            if (seriesParam !== null && watchParam !== null) { 
+                renderWatchView(parseInt(seriesParam), parseInt(watchParam)); 
+            } else if (seriesParam !== null) { 
+                renderSeriesView(parseInt(seriesParam)); 
+            } else { 
+                renderHomeView(); 
             }
         }
 
+        // الاستماع لأزرار التنقل في المتصفح (للأمام/للخلف)
         window.addEventListener('popstate', () => handleRouting());
-        function goHome() { history.pushState(null, '', window.location.pathname); handleRouting(); }
-        function navigateBack() { if(window.history.length > 1) { history.back(); } else { goHome(); } }
-        window.openSeriesByIndex = function(index) { history.pushState(null, '', `?series=${index}`); handleRouting(); };
-        window.openWatchByIndex = function(epIndex) { history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`); handleRouting(); };
+        
+        function goHome() { 
+            history.pushState(null, '', window.location.pathname); 
+            handleRouting(); 
+        }
+        
+        function navigateBack() { 
+            if(window.history.length > 1) { history.back(); } else { goHome(); } 
+        }
+        
+        window.openSeriesByIndex = function(index) { 
+            history.pushState(null, '', `?series=${index}`); 
+            handleRouting(); 
+        };
+        
+        window.openWatchByIndex = function(epIndex) { 
+            history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`); 
+            handleRouting(); 
+        };
 
-        // ==========================================
-        // 📡 4. جلب وعرض البيانات والتصميم
-        // ==========================================
+        // ====================================================================
+        // 📡 4. جلب وعرض البيانات والتصميم الأساسي
+        // ====================================================================
         async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('فشل الاتصال بالخادم.');
+                if (!response.ok) throw new Error('فشل الاتصال بالسيرفر.');
                 appData = await response.json();
-                renderHomeStats(); handleRouting(); 
+                renderHomeStats(); 
+                handleRouting(); 
             } catch (error) {
-                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك بالإنترنت. التفاصيل: " + error.message;
+                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك أو من إعدادات الـ CORS. التفاصيل: " + error.message;
                 switchView('error-view');
             }
         }
@@ -398,22 +444,30 @@
             const views = ['loading-view', 'error-view', 'home-view', 'series-view', 'watch-view'];
             views.forEach(id => document.getElementById(id).classList.add('hidden-view'));
             document.getElementById(viewId).classList.remove('hidden-view');
+            
             const backBtn = document.getElementById('back-btn');
-            if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') { backBtn.classList.add('hidden'); backBtn.classList.remove('flex'); } 
-            else { backBtn.classList.remove('hidden'); backBtn.classList.add('flex'); }
-            window.scrollTo({ top: 0, behavior: 'smooth' }); lucide.createIcons();
+            if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') { 
+                backBtn.classList.add('hidden'); backBtn.classList.remove('flex'); 
+            } else { 
+                backBtn.classList.remove('hidden'); backBtn.classList.add('flex'); 
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            lucide.createIcons();
         }
 
         function renderHomeView() {
-            const searchInput = document.getElementById('search-input'); if(searchInput) searchInput.value = '';
-            renderSeriesGrid(appData.series); switchView('home-view');
+            const searchInput = document.getElementById('search-input'); 
+            if(searchInput) searchInput.value = '';
+            renderSeriesGrid(appData.series); 
+            switchView('home-view');
         }
 
         function renderHomeStats() {
             if (!appData) return;
             document.getElementById('stats-container').innerHTML = `
-                <div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800"><i data-lucide="clapperboard" class="w-4 h-4 text-purple-500"></i><span>إجمالي الأعمال: <span class="text-white font-bold ml-1">${appData.total_series || appData.series.length}</span></span></div>
-                <div class="flex items-center gap-2 text-gray-500"><i data-lucide="clock" class="w-4 h-4"></i><span>تحديث:</span><span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span></div>
+                <div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800"><i data-lucide="clapperboard" class="w-4 h-4 text-purple-500"></i><span>الأعمال المتاحة: <span class="text-white font-bold ml-1">${appData.total_series || appData.series.length}</span></span></div>
+                <div class="flex items-center gap-2 text-gray-500"><i data-lucide="clock" class="w-4 h-4"></i><span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span></div>
             `;
         }
 
@@ -421,29 +475,32 @@
             const grid = document.getElementById('series-grid'); const noResults = document.getElementById('no-results');
             if (seriesList.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
             noResults.classList.add('hidden-view'); let html = '';
+            
             seriesList.forEach((series) => {
-                const episodesCount = series.episodes_count || (series.episodes ? series.episodes.length : 0);
+                const eps = series.episodes_count || (series.episodes ? series.episodes.length : 0);
                 const title = escapeHTML(series.title); const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
-                const originalIndex = appData.series.indexOf(series);
-                html += `
-                <div onclick="openSeriesByIndex(${originalIndex})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800 flex flex-col">
-                    <div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg"><img src="${poster}" alt="${title}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" /><div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800"><i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i></div><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px] z-30"><div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform duration-300 flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i></div></div><div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg"><i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i><span>${episodesCount}</span></div><div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30"><h3 class="font-bold text-gray-100 text-sm sm:text-base line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors">${title}</h3></div></div>
-                </div>`;
+                const idx = appData.series.indexOf(series);
+                
+                html += `<div onclick="openSeriesByIndex(${idx})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800 flex flex-col"><div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" /><div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800"><i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i></div><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px] z-30"><div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i></div></div><div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg"><i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i><span>${eps}</span></div><div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30"><h3 class="font-bold text-gray-100 text-sm line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors">${title}</h3></div></div></div>`;
             });
             grid.innerHTML = html; lucide.createIcons();
         }
 
         function renderSeriesView(index) {
             const series = appData.series[index]; if (!series) { goHome(); return; } currentSeriesIndex = index;
-            const title = escapeHTML(series.title); const desc = escapeHTML(series.description) || "لا يوجد قصة أو وصف متاح لهذا المسلسل في الوقت الحالي.";
+            const title = escapeHTML(series.title); const desc = escapeHTML(series.description) || "لا يوجد وصف لهذا الأنمي.";
             const poster = series.poster_url ? escapeHTML(series.poster_url) : ''; const episodesList = series.episodes || [];
-            document.getElementById('series-hero').innerHTML = `
-                <div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden"><img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" /><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div></div>
-                <div class="relative z-10 px-6 sm:px-10 py-10 sm:py-16 flex flex-col md:flex-row gap-8 items-center md:items-end"><div class="shrink-0 w-48 sm:w-56 md:w-64 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center"><img src="${poster}" onerror="handleImageError(this)" alt="${title}" class="w-full h-full object-cover z-10" /></div><div class="flex-1 text-center md:text-right mt-4 md:mt-0"><div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full text-xs font-bold mb-4 backdrop-blur-md"><i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> أنمي متوفر</div><h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2><p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/40 p-5 rounded-2xl backdrop-blur-md border border-white/5 shadow-inner">${desc}</p><div class="flex flex-wrap gap-4 justify-center md:justify-start"><div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl backdrop-blur-sm border border-gray-700 shadow-lg"><i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i><span class="font-bold">${episodesList.length} حلقات</span></div>${episodesList.length > 0 ? `<button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:-translate-y-0.5"><i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة</button>` : ''}</div></div></div>`;
+            
+            document.getElementById('series-hero').innerHTML = `<div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden"><img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" /><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div></div><div class="relative z-10 px-6 sm:px-10 py-10 flex flex-col md:flex-row gap-8 items-center md:items-end"><div class="shrink-0 w-48 sm:w-56 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover z-10" /></div><div class="flex-1 text-center md:text-right mt-4 md:mt-0"><h2 class="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2><p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/40 p-5 rounded-2xl backdrop-blur-md border border-white/5 shadow-inner">${desc}</p><div class="flex flex-wrap gap-4 justify-center md:justify-start"><div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl border border-gray-700"><i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i><span class="font-bold">${episodesList.length} حلقات</span></div>${episodesList.length > 0 ? `<button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all"><i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة</button>` : ''}</div></div></div>`;
+            
             const episodesContainer = document.getElementById('episodes-list');
-            if (episodesList.length === 0) { episodesContainer.innerHTML = `<div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm"><i data-lucide="inbox" class="mx-auto h-14 w-14 text-gray-600 mb-4 block"></i><p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p></div>`; } 
-            else {
-                let epHtml = ''; episodesList.forEach((ep, idx) => { epHtml += `<button onclick="openWatchByIndex(${idx})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 relative overflow-hidden text-right w-full"><div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div><div class="flex items-center gap-4 pr-3"><div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all shadow-inner border border-gray-800 group-hover:border-purple-500 shrink-0 group-hover:scale-110"><i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors ml-1 ${idx === 0 ? 'fill-current' : ''}"></i></div><div><span class="block font-bold text-gray-200 group-hover:text-white transition-colors mb-1 text-lg">${escapeHTML(ep.episode)}</span><span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit"><i data-lucide="server" class="w-3 h-3 text-purple-400"></i>${ep.servers ? ep.servers.length : 0} سيرفرات</span></div></div><div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full transition-colors"><i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400 transform group-hover:-translate-x-1 transition-all"></i></div></button>`; });
+            if (episodesList.length === 0) { 
+                episodesContainer.innerHTML = `<div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm"><p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p></div>`; 
+            } else {
+                let epHtml = ''; 
+                episodesList.forEach((ep, idx) => { 
+                    epHtml += `<button onclick="openWatchByIndex(${idx})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between text-right w-full"><div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div><div class="flex items-center gap-4 pr-3"><div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all border border-gray-800 group-hover:border-purple-500 shrink-0"><i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white ml-1 ${idx === 0 ? 'fill-current' : ''}"></i></div><div><span class="block font-bold text-gray-200 group-hover:text-white mb-1 text-lg">${escapeHTML(ep.episode)}</span><span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit"><i data-lucide="server" class="w-3 h-3 text-purple-400"></i>${ep.servers ? ep.servers.length : 0} سيرفرات</span></div></div><div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full"><i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400"></i></div></button>`; 
+                });
                 episodesContainer.innerHTML = epHtml;
             }
             switchView('series-view');
@@ -453,10 +510,11 @@
             const series = appData.series[seriesIndex]; if (!series || !series.episodes || !series.episodes[epIndex]) { goHome(); return; }
             currentSeriesIndex = seriesIndex; currentEpisodeIndex = epIndex; const episode = series.episodes[epIndex];
             const servers = episode.servers || []; currentServer = servers.length > 0 ? servers[0] : null;
-            document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-xl transition-all shrink-0 border border-gray-700 hover:border-gray-500 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة</button>`;
             
-            // استدعاء دالة المشغل للتأكد من حالة الطبقة الشفافة
-            if(window.checkPlayerAds) window.checkPlayerAds();
+            document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 px-5 py-2.5 rounded-xl border border-gray-700 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة</button>`;
+            
+            // تفعيل حالة حماية المشغل الإعلانية الجديدة
+            if(window.refreshPlayerAds) window.refreshPlayerAds();
 
             renderServers(servers); switchView('watch-view');
         }
@@ -468,15 +526,17 @@
 
         function renderServers(servers) {
             const videoContainer = document.getElementById('video-container'); const serversList = document.getElementById('servers-list');
-            if (!currentServer) { videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">لا يوجد سيرفر مشاهدة متاح لهذه الحلقة</p></div>`; serversList.innerHTML = ''; return; }
+            if (!currentServer) { 
+                videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">لا يوجد سيرفر مشاهدة متاح لهذه الحلقة</p></div>`; 
+                serversList.innerHTML = ''; return; 
+            }
             
-            // نحتفظ بالطبقة الشفافة (player-ad-overlay) ونغير الايفريم فقط
-            videoContainer.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" title="مشغل الفيديو"></iframe>`;
+            videoContainer.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no"></iframe>`;
             
             document.getElementById('servers-container').classList.remove('hidden'); let btnsHtml = '';
             servers.forEach((server, index) => {
                 const isSelected = (currentServer === server); const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
-                const baseClasses = "relative overflow-hidden px-5 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3 w-full sm:w-auto flex-1 sm:flex-none justify-center sm:justify-start border"; const activeClasses = "bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border-purple-500 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02] z-10"; const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border-gray-700 hover:border-gray-500 shadow-sm";
+                const baseClasses = "relative overflow-hidden px-5 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3 w-full sm:w-auto flex-1 sm:flex-none justify-center sm:justify-start border"; const activeClasses = "bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border-purple-500 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02] z-10"; const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 border-gray-700";
                 btnsHtml += `<button onclick="selectServer(${index})" class="${baseClasses} ${isSelected ? activeClasses : inactiveClasses}">${isSelected ? '<div class="absolute inset-0 bg-white/20 animate-pulse"></div>' : ''}<i data-lucide="monitor-play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white' : 'text-purple-400'}"></i><span class="relative z-10 whitespace-nowrap">${cleanName}</span></button>`;
             });
             serversList.innerHTML = btnsHtml; lucide.createIcons();
@@ -488,14 +548,14 @@
             renderSeriesGrid(filtered);
         }
 
-        // ==========================================
-        // 🚀 بدء التهيئة
-        // ==========================================
+        // ====================================================================
+        // 🚀 5. تشغيل وبدء كافة الأنظمة
+        // ====================================================================
         document.addEventListener('DOMContentLoaded', () => {
-            fetchAppData(); 
-            detectAdBlock(); 
-            AdManager.initGlobalPops(); 
-            AdManager.initPlayerPops();
+            fetchAppData();         // جلب البيانات وبناء الموقع
+            detectAdBlock();        // تفعيل كاشف الحظر
+            AdManager.initGlobalSystem(); // تفعيل إعلانات الـ 4 دقائق
+            AdManager.initPlayerSystem(); // تفعيل إعلانات المشغل (الـ 15 دقيقة)
         });
 
     </script>
