@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أنمي ستريم | المشاهدة الممتعة</title>
+    <title>ANIME-HENTAI | المشاهدة الممتعة</title>
+    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات وحلقات الأنمي بجودة عالية.">
     
     <!-- خطوط جوجل (Cairo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,7 +50,7 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        /* إخفاء العناصر غير النشطة */
+        /* إخفاء العناصر غير النشطة بسلاسة */
         .hidden-view { display: none !important; }
 
         /* خلفية احتياطية للصور المكسورة */
@@ -59,6 +60,9 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* تحسينات الإدخال (Search) */
+        input:focus { outline: none; }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 selection:text-white flex flex-col min-h-screen">
@@ -99,7 +103,7 @@
                 <i data-lucide="loader-2" class="w-16 h-16 text-purple-500 animate-spin mb-6 relative z-10"></i>
             </div>
             <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 animate-pulse">
-                جاري جلب البيانات...
+                جاري الاتصال بالخادم وجلب البيانات...
             </h2>
         </div>
 
@@ -112,6 +116,7 @@
                 <h2 class="text-2xl font-black text-white mb-3">عذراً، حدث خطأ!</h2>
                 <p id="error-message" class="text-gray-400 mb-8 leading-relaxed"></p>
                 <button onclick="location.reload()" class="bg-white hover:bg-gray-200 text-black px-8 py-3 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     إعادة المحاولة
                 </button>
             </div>
@@ -146,13 +151,12 @@
             <div id="no-results" class="hidden-view text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800/50 backdrop-blur-sm">
                 <i data-lucide="alert-circle" class="mx-auto h-16 w-16 text-gray-600 mb-4 block"></i>
                 <h3 class="text-xl font-bold text-gray-300">لم يتم العثور على نتائج</h3>
-                <p class="text-gray-500 mt-2">جرب البحث بكلمات مختلفة.</p>
+                <p class="text-gray-500 mt-2">جرب البحث بكلمات مختلفة أو تأكد من الإملاء.</p>
             </div>
         </div>
 
         <!-- صفحة تفاصيل الأنمي -->
         <div id="series-view" class="hidden-view slide-up">
-            <!-- الهيدر الخاص بالمسلسل -->
             <div id="series-hero" class="relative w-full rounded-3xl overflow-hidden mb-10 shadow-2xl border border-gray-800 mt-4 bg-gray-900">
                 <!-- المحتوى يضاف بواسطة JS -->
             </div>
@@ -171,19 +175,16 @@
 
         <!-- صفحة المشاهدة -->
         <div id="watch-view" class="hidden-view zoom-in max-w-5xl mx-auto">
-            <!-- معلومات الحلقة -->
             <div id="watch-info" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-900 p-4 rounded-2xl border border-gray-800">
                 <!-- يضاف بواسطة JS -->
             </div>
 
-            <!-- مشغل الفيديو -->
-            <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-8 ring-1 ring-white/5">
+            <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-8 ring-1 ring-white/5 group">
                 <div id="video-container" class="w-full h-full">
                     <!-- Iframe يضاف هنا بواسطة JS -->
                 </div>
             </div>
 
-            <!-- قائمة السيرفرات -->
             <div id="servers-container" class="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg">
                 <h3 class="text-white font-bold mb-5 flex items-center gap-2 text-lg">
                     <i data-lucide="server" class="w-5 h-5 text-purple-500"></i>
@@ -192,9 +193,9 @@
                 <div id="servers-list" class="flex flex-wrap gap-3">
                     <!-- أزرار السيرفرات تضاف هنا بواسطة JS -->
                 </div>
-                <p class="mt-5 text-sm text-gray-500 flex items-center gap-2">
-                    <i data-lucide="info" class="w-4 h-4"></i>
-                    إذا لم يعمل السيرفر الأول، جرب اختيار سيرفر آخر من القائمة.
+                <p class="mt-5 text-sm text-gray-500 flex items-center gap-2 bg-gray-800/50 p-3 rounded-lg w-fit">
+                    <i data-lucide="info" class="w-4 h-4 text-purple-400"></i>
+                    ملاحظة: إذا لم يعمل السيرفر الأول، يرجى اختيار سيرفر آخر من القائمة.
                 </p>
             </div>
         </div>
@@ -206,8 +207,8 @@
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2 text-gray-400">
                 <i data-lucide="monitor-play" class="w-5 h-5 text-purple-500"></i>
-                <span class="font-bold text-white">أنمي ستريم</span>
-                <span>&copy; 2026</span>
+                <span class="font-bold text-white text-lg">أنمي ستريم</span>
+                <span class="text-sm">&copy; 2026</span>
             </div>
             <p class="text-gray-600 text-sm text-center md:text-right">
                 موقع مشاهدة الأنمي الأسرع والأفضل. جميع الحقوق محفوظة.
@@ -215,23 +216,24 @@
         </div>
     </footer>
 
-    <!-- سكريبت التشغيل (JavaScript) -->
+    <!-- سكريبت التطبيق -->
     <script>
-        // تهيئة الأيقونات
+        // تفعيل أيقونات Lucide
         lucide.createIcons();
 
-        // متغيرات الحالة (State)
-        const API_URL = 'https://raw.githubusercontent.com/Guexbeta/Data-/refs/heads/main/hentaibalo_full_database.json';
+        // 🔗 الرابط الخاص بالخادم الوسيط (محمي بالـ CORS)
+        const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
+
         let appData = null;
-        let currentView = 'home'; // home, series, watch
+        let currentView = 'home';
         let currentSeries = null;
         let currentEpisode = null;
         let currentServer = null;
 
-        // دالة الهروب لمنع XSS
+        // دالة لمنع ثغرات XSS في النصوص
         const escapeHTML = (str) => {
             if (!str) return '';
-            return str.replace(/[&<>'"]/g, 
+            return str.toString().replace(/[&<>'"]/g, 
                 tag => ({
                     '&': '&amp;',
                     '<': '&lt;',
@@ -242,31 +244,30 @@
             );
         };
 
-        // التعامل مع الصور الخاطئة
+        // دالة للتعامل مع الصور التي تفشل في التحميل
         function handleImageError(img) {
-            img.onerror = null; // منع التكرار
+            img.onerror = null;
             img.style.display = 'none';
             img.nextElementSibling.classList.remove('hidden');
         }
 
-        // جلب البيانات عند بدء التشغيل
+        // جلب البيانات من الخادم
         async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('لا يمكن الوصول إلى خادم البيانات. يرجى المحاولة لاحقاً.');
+                if (!response.ok) throw new Error('لا يمكن الوصول إلى خادم البيانات.');
                 appData = await response.json();
                 
-                // تنظيف بعض البيانات إن لزم
                 renderHomeStats();
                 renderSeriesGrid(appData.series);
                 switchView('home-view');
             } catch (error) {
-                document.getElementById('error-message').textContent = error.message;
+                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك بالإنترنت أو أن رابط موقعك مضاف بشكل صحيح في إعدادات الخادم (CORS). التفاصيل: " + error.message;
                 switchView('error-view');
             }
         }
 
-        // تبديل الشاشات
+        // التنقل بين الشاشات
         function switchView(viewId) {
             const views = ['loading-view', 'error-view', 'home-view', 'series-view', 'watch-view'];
             views.forEach(id => {
@@ -274,7 +275,6 @@
             });
             document.getElementById(viewId).classList.remove('hidden-view');
             
-            // تحديث زر الرجوع
             const backBtn = document.getElementById('back-btn');
             if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') {
                 backBtn.classList.add('hidden');
@@ -284,23 +284,27 @@
                 backBtn.classList.add('flex');
             }
 
-            // التمرير للأعلى بسلاسة
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // إعادة تفعيل الأيقونات
             lucide.createIcons();
         }
 
-        // وظائف التنقل
+        // العودة للرئيسية
         function goHome() {
             currentView = 'home';
             currentSeries = null;
             currentEpisode = null;
-            document.getElementById('search-input').value = '';
-            renderSeriesGrid(appData.series); // إعادة تعيين البحث
+            
+            // إعادة تعيين شريط البحث وإظهار كل الشبكة
+            const searchInput = document.getElementById('search-input');
+            if(searchInput) searchInput.value = '';
+            
+            if(appData && appData.series) {
+                renderSeriesGrid(appData.series);
+            }
             switchView('home-view');
         }
 
+        // زر الرجوع
         function navigateBack() {
             if (currentView === 'watch') {
                 openSeries(currentSeries);
@@ -309,7 +313,7 @@
             }
         }
 
-        // وظيفة البحث
+        // البحث السريع
         function handleSearch() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             if (!appData || !appData.series) return;
@@ -322,23 +326,24 @@
             renderSeriesGrid(filtered);
         }
 
-        // --- وظائف العرض (الرندر) ---
-
+        // عرض إحصائيات الصفحة الرئيسية
         function renderHomeStats() {
             if (!appData) return;
             const statsHtml = `
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800">
                     <i data-lucide="clapperboard" class="w-4 h-4 text-purple-500"></i>
-                    <span>إجمالي المسلسلات: <span class="text-white bg-gray-800 px-2 py-0.5 rounded-md ml-1">${appData.total_series || appData.series.length}</span></span>
+                    <span>إجمالي الأعمال: <span class="text-white font-bold ml-1">${appData.total_series || appData.series.length}</span></span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span>آخر تحديث:</span>
-                    <span dir="ltr" class="text-gray-300">${escapeHTML(appData.last_update.split(' ')[0])}</span>
+                <div class="flex items-center gap-2 text-gray-500">
+                    <i data-lucide="clock" class="w-4 h-4"></i>
+                    <span>تحديث:</span>
+                    <span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span>
                 </div>
             `;
             document.getElementById('stats-container').innerHTML = statsHtml;
         }
 
+        // رسم شبكة مسلسلات الأنمي
         function renderSeriesGrid(seriesList) {
             const grid = document.getElementById('series-grid');
             const noResults = document.getElementById('no-results');
@@ -353,36 +358,40 @@
             let html = '';
 
             seriesList.forEach((series, index) => {
-                // حفظ الـ index للوصول السريع للكائن
                 const episodesCount = series.episodes_count || (series.episodes ? series.episodes.length : 0);
                 const title = escapeHTML(series.title);
                 const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
+                // استخدام الفهرس الأصلي في المصفوفة الكلية لضمان فتح المسلسل الصحيح حتى بعد التصفية (البحث)
+                const originalIndex = appData.series.indexOf(series);
 
                 html += `
-                <div onclick="openSeriesByIndex(${appData.series.indexOf(series)})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800">
+                <div onclick="openSeriesByIndex(${originalIndex})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800 flex flex-col">
                     <div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg">
                         <img src="${poster}" alt="${title}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" />
                         
-                        <!-- عنصر يظهر في حال فشل تحميل الصورة -->
-                        <div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-2 text-center">
-                            <i data-lucide="clapperboard" class="w-8 h-8 opacity-20 mb-2"></i>
-                            <span class="text-xs opacity-50 line-clamp-2">${title}</span>
+                        <!-- عنصر الصورة البديلة (يظهر فقط إذا فشلت الصورة الأصلية) -->
+                        <div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800">
+                            <i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i>
+                            <span class="text-xs opacity-70 line-clamp-2 leading-tight">${title}</span>
                         </div>
                         
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div>
                         
+                        <!-- زر التشغيل عند التمرير -->
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px] z-30">
                             <div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform duration-300 flex items-center justify-center">
                                 <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
                             </div>
                         </div>
 
-                        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30">
+                        <!-- شارة الحلقات -->
+                        <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg">
                             <i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i>
                             <span>${episodesCount}</span>
                         </div>
 
-                        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 z-30">
+                        <!-- العنوان السفلي -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30">
                             <h3 class="font-bold text-gray-100 text-sm sm:text-base line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors" title="${title}">
                                 ${title}
                             </h3>
@@ -396,11 +405,12 @@
             lucide.createIcons();
         }
 
-        // وسيط لفتح المسلسل بواسطة الـ Index
+        // فتح صفحة المسلسل بناء على الفهرس
         window.openSeriesByIndex = function(index) {
             openSeries(appData.series[index]);
         };
 
+        // عرض تفاصيل المسلسل وقائمة الحلقات
         function openSeries(series) {
             currentView = 'series';
             currentSeries = series;
@@ -410,36 +420,39 @@
             const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
             const episodesList = series.episodes || [];
 
-            // 1. بناء الهيدر
             const heroHtml = `
+                <!-- الخلفية الضبابية -->
                 <div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden">
-                    <img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-2xl opacity-30 scale-110" />
+                    <img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" />
                     <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-gray-950/80 via-transparent to-transparent"></div>
                 </div>
-
+                
                 <div class="relative z-10 px-6 sm:px-10 py-10 sm:py-16 flex flex-col md:flex-row gap-8 items-center md:items-end">
-                    <div class="shrink-0 w-48 sm:w-56 md:w-64 aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl shadow-black border-4 border-gray-800/50 relative bg-gray-800 flex items-center justify-center">
+                    <!-- الغلاف الواضح -->
+                    <div class="shrink-0 w-48 sm:w-56 md:w-64 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center">
                         <img src="${poster}" onerror="handleImageError(this)" alt="${title}" class="w-full h-full object-cover z-10" />
                         <div class="hidden absolute flex flex-col items-center justify-center text-gray-500 p-2 text-center z-0">
-                            <i data-lucide="clapperboard" class="w-10 h-10 opacity-20 mb-2"></i>
+                            <i data-lucide="image-off" class="w-12 h-12 opacity-30 mb-2"></i>
                         </div>
                     </div>
-
+                    
+                    <!-- المعلومات -->
                     <div class="flex-1 text-center md:text-right mt-4 md:mt-0">
-                        <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full text-xs font-bold mb-4 backdrop-blur-sm">
-                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> مسلسل مكتمل
+                        <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full text-xs font-bold mb-4 backdrop-blur-md">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> أنمي متوفر
                         </div>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-lg">${title}</h2>
-                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/20 p-4 rounded-xl backdrop-blur-sm border border-white/5">${desc}</p>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/40 p-5 rounded-2xl backdrop-blur-md border border-white/5 shadow-inner">${desc}</p>
                         
                         <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <div class="flex items-center gap-2 text-gray-300 bg-gray-800/80 px-4 py-2 rounded-lg backdrop-blur-sm border border-gray-700">
-                                <i data-lucide="list-video" class="w-4 h-4 text-purple-400"></i>
-                                <span class="font-semibold">${episodesList.length} حلقات</span>
+                            <div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl backdrop-blur-sm border border-gray-700 shadow-lg">
+                                <i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i>
+                                <span class="font-bold">${episodesList.length} حلقات</span>
                             </div>
                             ${episodesList.length > 0 ? `
-                            <button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2 rounded-lg font-bold transition-colors shadow-lg shadow-white/10">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i> شاهد الحلقة الأولى
+                            <button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:-translate-y-0.5">
+                                <i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة
                             </button>` : ''}
                         </div>
                     </div>
@@ -447,13 +460,12 @@
             `;
             document.getElementById('series-hero').innerHTML = heroHtml;
 
-            // 2. بناء قائمة الحلقات
             const episodesContainer = document.getElementById('episodes-list');
             if (episodesList.length === 0) {
                 episodesContainer.innerHTML = `
-                    <div class="col-span-full text-center py-16 bg-gray-900/50 rounded-2xl border border-gray-800 text-gray-400 backdrop-blur-sm">
-                        <i data-lucide="info" class="mx-auto h-12 w-12 text-gray-600 mb-3 block"></i>
-                        <p class="text-lg">لا توجد حلقات متاحة حالياً</p>
+                    <div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm">
+                        <i data-lucide="inbox" class="mx-auto h-14 w-14 text-gray-600 mb-4 block"></i>
+                        <p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p>
                     </div>`;
             } else {
                 let epHtml = '';
@@ -463,20 +475,22 @@
                     <button onclick="openWatchByIndex(${index})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 relative overflow-hidden text-right w-full">
                         <div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div>
                         <div class="flex items-center gap-4 pr-3">
-                            <div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-colors shadow-inner border border-gray-800 group-hover:border-purple-500 shrink-0">
+                            <div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all shadow-inner border border-gray-800 group-hover:border-purple-500 shrink-0 group-hover:scale-110">
                                 <i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors ml-1 ${index === 0 ? 'fill-current' : ''}"></i>
                             </div>
                             <div>
                                 <span class="block font-bold text-gray-200 group-hover:text-white transition-colors mb-1 text-lg">
                                     ${escapeHTML(ep.episode)}
                                 </span>
-                                <span class="text-xs text-gray-500 flex items-center gap-1.5">
-                                    <i data-lucide="server" class="w-3 h-3 text-purple-400/70"></i>
-                                    ${serverCount} سيرفرات للمشاهدة
+                                <span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit">
+                                    <i data-lucide="server" class="w-3 h-3 text-purple-400"></i>
+                                    ${serverCount} سيرفرات
                                 </span>
                             </div>
                         </div>
-                        <i data-lucide="arrow-left" class="w-5 h-5 text-gray-600 group-hover:text-purple-400 transform group-hover:-translate-x-2 transition-all"></i>
+                        <div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400 transform group-hover:-translate-x-1 transition-all"></i>
+                        </div>
                     </button>
                     `;
                 });
@@ -486,29 +500,30 @@
             switchView('series-view');
         }
 
+        // فتح حلقة معينة للتشغيل
         window.openWatchByIndex = function(index) {
             openWatch(currentSeries.episodes[index]);
         };
 
+        // عرض مشغل الفيديو والسيرفرات
         function openWatch(episode) {
             currentView = 'watch';
             currentEpisode = episode;
             const servers = episode.servers || [];
             currentServer = servers.length > 0 ? servers[0] : null;
 
-            // تحديث معلومات الحلقة
             document.getElementById('watch-info').innerHTML = `
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-1 line-clamp-1">
+                <div class="flex-1">
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">
                         ${escapeHTML(currentSeries.title)}
                     </h2>
-                    <div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1 rounded-md text-sm">
-                        <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                    <div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20">
+                        <i data-lucide="play-circle" class="w-4 h-4"></i>
                         <span>${escapeHTML(episode.episode)}</span>
                     </div>
                 </div>
-                <button onclick="navigateBack()" class="text-sm text-gray-400 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors shrink-0">
-                    <i data-lucide="list-video" class="w-4 h-4"></i> العودة للقائمة
+                <button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-5 py-2.5 rounded-xl transition-all shrink-0 border border-gray-700 hover:border-gray-500 shadow-sm">
+                    <i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة
                 </button>
             `;
 
@@ -516,11 +531,13 @@
             switchView('watch-view');
         }
 
+        // تغيير السيرفر
         window.selectServer = function(index) {
             currentServer = currentEpisode.servers[index];
-            renderServers(currentEpisode.servers); // إعادة الرندر لتحديث الألوان والفيديو
+            renderServers(currentEpisode.servers); 
         }
 
+        // رسم مشغل الايفريم وأزرار السيرفرات
         function renderServers(servers) {
             const videoContainer = document.getElementById('video-container');
             const serversList = document.getElementById('servers-list');
@@ -528,8 +545,8 @@
             if (!currentServer) {
                 videoContainer.innerHTML = `
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900">
-                        <i data-lucide="alert-circle" class="w-14 h-14 mb-4 text-gray-700"></i>
-                        <p class="text-lg">لا يوجد سيرفر مشاهدة متاح لهذه الحلقة</p>
+                        <i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i>
+                        <p class="text-lg font-bold text-gray-400">نأسف، لا يوجد سيرفر مشاهدة متاح لهذه الحلقة حالياً</p>
                     </div>`;
                 serversList.innerHTML = '';
                 document.getElementById('servers-container').classList.add('hidden');
@@ -537,34 +554,36 @@
                 return;
             }
 
-            // رسم المشغل
+            // عرض الايفريم
             videoContainer.innerHTML = `
                 <iframe
                     src="${currentServer.embed_url}"
                     class="absolute top-0 left-0 w-full h-full bg-black"
                     frameBorder="0"
-                    allowFullScreen
+                    allowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
+                    scrolling="no"
                     title="مشغل الفيديو"
                 ></iframe>
             `;
 
-            // رسم الأزرار
+            // عرض الأزرار
             document.getElementById('servers-container').classList.remove('hidden');
             let btnsHtml = '';
             servers.forEach((server, index) => {
                 const isSelected = (currentServer === server);
-                // تنظيف اسم السيرفر (إزالة الأرقام من البداية)
                 const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
                 
-                const baseClasses = "relative overflow-hidden px-5 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3";
-                const activeClasses = "bg-purple-600 text-white shadow-lg shadow-purple-600/30 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02]";
-                const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700 hover:border-gray-500";
+                const baseClasses = "relative overflow-hidden px-5 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3 w-full sm:w-auto flex-1 sm:flex-none justify-center sm:justify-start border";
+                const activeClasses = "bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border-purple-500 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02] z-10";
+                const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border-gray-700 hover:border-gray-500 shadow-sm";
                 
                 btnsHtml += `
                     <button onclick="selectServer(${index})" class="${baseClasses} ${isSelected ? activeClasses : inactiveClasses}">
                         ${isSelected ? '<div class="absolute inset-0 bg-white/20 animate-pulse"></div>' : ''}
-                        <i data-lucide="play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white fill-current' : 'text-purple-400'}"></i>
-                        <span class="relative z-10">${cleanName}</span>
+                        <i data-lucide="monitor-play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white' : 'text-purple-400'}"></i>
+                        <span class="relative z-10 whitespace-nowrap">${cleanName}</span>
                     </button>
                 `;
             });
@@ -573,10 +592,11 @@
             lucide.createIcons();
         }
 
-        // بدء التشغيل
+        // بدء التشغيل عند اكتمال تحميل الصفحة
         document.addEventListener('DOMContentLoaded', fetchAppData);
 
     </script>
 </body>
 </html>
+
 
