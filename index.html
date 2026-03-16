@@ -2,9 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> هينتاي أنمي ومانجا ستريم | تجربة ترفيهية متكاملة</title>
-    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات الأنمي  هينتاي وقراءة المانجا بجودة عالية ومترجمة.">
+    <!-- إعدادات الزوم: السماح بالتقريب ولكن سيتم تقييده عبر الـ CSS للواجهة فقط -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>أنمي ومانجا هينتاي | تجربة ترفيهية متكاملة</title>
+    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات الأنمي وقراءة المانجا بجودة عالية ومترجمة.">
     <meta name="theme-color" content="#050505">
     
     <!-- خطوط جوجل (Cairo) -->
@@ -32,8 +33,15 @@
     <!-- أيقونات Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- 💰 إعلان البوب أندر (Popunder) المحدث -->
+    <script src="https://agreedaboriginal.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js"></script>
+
     <style>
-        /* تخصيص شريط التمرير بشكل أنيق */
+        /* منع التقريب العشوائي للواجهة والسماح به للصور فقط */
+        html, body { touch-action: manipulation; } 
+        .manga-page { touch-action: pan-x pan-y pinch-zoom; }
+
+        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
@@ -41,7 +49,7 @@
 
         body { background-color: #050505; color: #f4f4f5; }
 
-        /* حركات الانيميشن الأساسية */
+        /* حركات الانيميشن */
         .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .zoom-in { animation: zoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -55,20 +63,21 @@
         
         .blur-content { filter: blur(16px) brightness(0.3); pointer-events: none; user-select: none; transition: filter 0.3s; }
         
-        /* تأثير زجاجي فاخر */
+        /* تأثيرات التصميم الزجاجي */
         .glass-panel { background: rgba(15, 15, 17, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .glass-nav { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .fallback-image-bg { background: linear-gradient(to bottom right, #0f0f11, #1a1a1c); display: flex; align-items: center; justify-content: center; overflow: hidden;}
 
         /* تنسيق المانجا */
-        .manga-page { width: 100%; max-width: 750px; margin: 0 auto 6px auto; display: block; border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); }
+        .manga-page { width: 100%; max-width: 800px; margin: 0 auto 6px auto; display: block; border-radius: 4px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); }
         
-        /* تأثير التوهج (Glow) للبطاقات */
+        /* تأثير التوهج */
         .glow-effect:hover { box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.3); border-color: rgba(139, 92, 246, 0.4); }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-primary-500/40 flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- خلفية متوهجة للموقع -->
+    <!-- خلفية متوهجة -->
     <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
         <div class="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary-600/10 rounded-full blur-[120px]"></div>
         <div class="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-accent-500/10 rounded-full blur-[120px]"></div>
@@ -115,9 +124,9 @@
                     </div>
                 </div>
                 
-                <!-- أزرار التبديل الأنيقة (Tabs) -->
+                <!-- أزرار التبديل الأنيقة -->
                 <div class="flex bg-dark-800 border border-white/5 rounded-2xl p-1 shadow-inner">
-                    <button id="tab-anime" onclick="switchMode('anime')" class="flex items-center gap-2 px-5 sm:px-8 py-2 rounded-xl text-sm font-bold transition-all bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg">
+                    <button id="tab-anime" onclick="switchMode('anime')" class="flex items-center gap-2 px-5 sm:px-8 py-2 rounded-xl text-sm font-bold transition-all bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-[0_0_20px_rgba(124,58,237,0.4)]">
                         <i data-lucide="monitor-play" class="w-4 h-4"></i><span class="hidden sm:inline">أنمي</span>
                     </button>
                     <button id="tab-manga" onclick="switchMode('manga')" class="flex items-center gap-2 px-5 sm:px-8 py-2 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5">
@@ -159,7 +168,7 @@
                         <i data-lucide="zap" class="w-4 h-4"></i> المنصة الأولى للترفيه
                     </div>
                     <h2 class="text-4xl sm:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-                        اكتشف عالم <br class="sm:hidden"><span id="home-title-highlight" class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">الأنمي والمانجا</span>
+                        اكتشف عالم <br class="sm:hidden"><span id="home-title-highlight" class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">الأنمي</span>
                     </h2>
                     
                     <div class="relative max-w-2xl mx-auto group mt-10">
@@ -237,8 +246,10 @@
                     </div>
                 </div>
 
+                <!-- حاوية الصور (قارئ المانجا) -->
                 <div class="bg-dark-900 rounded-[2rem] overflow-hidden relative border border-white/5 mb-8 p-2 sm:p-6 shadow-2xl min-h-[400px]">
                     <div id="manga-pages-container" class="flex flex-col items-center"></div>
+                    
                     <div id="reader-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden flex items-center justify-center backdrop-blur-[2px]">
                         <div class="bg-gradient-to-r from-primary-600 to-accent-600 px-8 py-4 rounded-full shadow-[0_0_40px_rgba(236,72,153,0.5)] animate-bounce pointer-events-none flex items-center gap-3 border border-white/20">
                             <i data-lucide="book-open" class="w-6 h-6 text-white"></i><span class="text-white font-bold text-lg">اضغط لبدء القراءة</span>
@@ -328,7 +339,7 @@
                     
                     const now = Date.now();
                     
-                    // 🔗 نظام Smartlink (دقيقتين)
+                    // 🔗 نظام Smartlink
                     let lastSmartlink = parseInt(localStorage.getItem('lastSmartlinkTime') || '0');
                     if (!e.target.closest('#player-ad-overlay') && !e.target.closest('#reader-ad-overlay')) {
                         if (now - lastSmartlink >= SMARTLINK_COOLDOWN) {
@@ -337,7 +348,7 @@
                         }
                     }
 
-                    // 💥 نظام Popunder العام (4 دقائق)
+                    // 💥 نظام Popunder العام
                     if (e.target.closest('#player-ad-overlay') || e.target.closest('#reader-ad-overlay')) return;
 
                     let initPops = parseInt(localStorage.getItem('globalInitPops') || '0');
@@ -447,7 +458,7 @@
 
         function renderHomeView() {
             const searchInput = document.getElementById('search-input'); if(searchInput) searchInput.value = '';
-            const data = currentMode === 'anime' ? animeData.series : mangaData.data;
+            const data = currentMode === 'anime' ? animeData.series : (mangaData.manga_list || []);
             renderCatalog(data);
             
             const stats = currentMode === 'anime' 
@@ -462,12 +473,13 @@
 
         function renderCatalog(list) {
             const grid = document.getElementById('catalog-grid'); const noResults = document.getElementById('no-results');
-            if (list.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
+            if (!list || list.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
             noResults.classList.add('hidden-view'); let html = '';
-            const isAnime = currentMode === 'anime'; const baseData = isAnime ? animeData.series : mangaData.data;
+            const isAnime = currentMode === 'anime'; 
+            const baseData = isAnime ? animeData.series : mangaData.manga_list;
 
             list.forEach((item) => {
-                const subCount = isAnime ? (item.episodes_count || (item.episodes?item.episodes.length:0)) : item.chapters_count;
+                const subCount = isAnime ? (item.episodes_count || (item.episodes?item.episodes.length:0)) : item.total_chapters;
                 const title = escapeHTML(item.title); const poster = escapeHTML(isAnime ? item.poster_url : item.cover);
                 const idx = baseData.indexOf(item); const icon = isAnime ? 'list-video' : 'layers';
                 
@@ -496,13 +508,14 @@
 
         window.handleSearch = function() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
-            const list = currentMode === 'anime' ? animeData.series : mangaData.data;
+            const list = currentMode === 'anime' ? animeData.series : mangaData.manga_list;
             const filtered = list.filter(s => (s.title && s.title.toLowerCase().includes(query)) || (s.description && s.description.toLowerCase().includes(query)));
             renderCatalog(filtered);
         }
 
         function renderDetailsView(index) {
-            const isAnime = currentMode === 'anime'; const item = isAnime ? animeData.series[index] : mangaData.data[index];
+            const isAnime = currentMode === 'anime'; 
+            const item = isAnime ? animeData.series[index] : mangaData.manga_list[index];
             if (!item) { goHome(); return; } currentIndex = index;
             
             const title = escapeHTML(item.title); const desc = escapeHTML(item.description) || "لا يوجد وصف متاح.";
@@ -536,7 +549,7 @@
             else {
                 let html = ''; subItems.forEach((sub, idx) => { 
                     const subTitle = escapeHTML(isAnime ? sub.episode : sub.chapter);
-                    const subMeta = isAnime ? `${sub.servers ? sub.servers.length : 0} سيرفرات` : `${sub.page_count || sub.pages.length} صفحة`;
+                    const subMeta = isAnime ? `${sub.servers ? sub.servers.length : 0} سيرفرات` : `${sub.images_count || sub.images.length} صفحة`;
                     const sIco = isAnime ? 'server' : 'file-image';
                     html += `
                     <button onclick="openSubItemByIndex(${idx})" class="group glass-panel hover:bg-white/5 border border-white/5 hover:border-primary-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between text-right w-full hover:-translate-y-1 hover:shadow-lg">
@@ -598,9 +611,9 @@
 
         // ================= المانجا =================
         function renderReadManga(mIdx, chIdx) {
-            const manga = mangaData.data[mIdx]; if (!manga || !manga.chapters || !manga.chapters[chIdx]) { goHome(); return; }
+            const manga = mangaData.manga_list[mIdx]; if (!manga || !manga.chapters || !manga.chapters[chIdx]) { goHome(); return; }
             currentIndex = mIdx; currentSubIndex = chIdx; const chapter = manga.chapters[chIdx];
-            const pages = chapter.pages || [];
+            const pages = chapter.images || [];
             
             document.getElementById('read-info').innerHTML = `
                 <div class="flex-1">
@@ -622,14 +635,19 @@
                     phtml += `<img src="${escapeHTML(pUrl)}" alt="Page ${i+1}" class="manga-page" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'100%\\' height=\\'400\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%230f0f11\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%2352525b\\' font-family=\\'sans-serif\\' font-size=\\'16\\' text-anchor=\\'middle\\'>خطأ في تحميل الصورة</text></svg>'">`;
                 });
                 
-                // أزرار التنقل السفلية بين الفصول
+                // أزرار التنقل السفلية بين الفصول (السابق/التالي) بالعربية
                 phtml += `<div class="flex justify-between w-full max-w-[750px] mt-8 mb-4">`;
-                if(chIdx < manga.chapters.length - 1) {
-                    phtml += `<button onclick="openSubItemByIndex(${chIdx + 1})" class="glass-panel hover:bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all hover:-translate-y-1"><i data-lucide="arrow-right" class="w-5 h-5"></i> الفصل السابق</button>`;
-                } else { phtml += `<div></div>`; }
+                
+                // الفصل التالي (في المصفوفة هو الفصل الأحدث، أي الـ index الخاص به أقل)
                 if(chIdx > 0) {
-                    phtml += `<button onclick="openSubItemByIndex(${chIdx - 1})" class="glass-panel hover:bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all hover:-translate-y-1">الفصل التالي <i data-lucide="arrow-left" class="w-5 h-5"></i></button>`;
+                    phtml += `<button onclick="openSubItemByIndex(${chIdx - 1})" class="glass-panel hover:bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all hover:-translate-y-1"><i data-lucide="arrow-right" class="w-5 h-5"></i> الفصل التالي</button>`;
                 } else { phtml += `<div></div>`; }
+                
+                // الفصل السابق (في المصفوفة هو الفصل الأقدم، أي الـ index الخاص به أكبر)
+                if(chIdx < manga.chapters.length - 1) {
+                    phtml += `<button onclick="openSubItemByIndex(${chIdx + 1})" class="glass-panel hover:bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all hover:-translate-y-1">الفصل السابق <i data-lucide="arrow-left" class="w-5 h-5"></i></button>`;
+                } else { phtml += `<div></div>`; }
+                
                 phtml += `</div>`;
                 
                 pCont.innerHTML = phtml;
