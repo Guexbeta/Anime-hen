@@ -3,103 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أنمي ستريم | المشاهدة الممتعة</title>
-    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات وحلقات الأنمي بجودة عالية ومترجمة.">
+    <title>أنمي ومانجا ستريم | المشاهدة الممتعة</title>
+    <meta name="description" content="موقع لمشاهدة أحدث مسلسلات الأنمي وقراءة المانجا بجودة عالية.">
     <meta name="theme-color" content="#030712">
     
-    <!-- خطوط جوجل (Cairo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- إعداد Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
-                    colors: { gray: { 850: '#1f2937', 950: '#030712' } }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Cairo', 'sans-serif'] }, colors: { gray: { 850: '#1f2937', 950: '#030712' } } } } }
     </script>
-
-    <!-- أيقونات Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #030712; }
         ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #6d28d9; }
-
-        /* حركات الانيميشن الأساسية */
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         .slide-up { animation: slideUp 0.4s ease-out; }
         .zoom-in { animation: zoomIn 0.3s ease-out; }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-        /* فئات مساعدة */
         .hidden-view { display: none !important; }
-        .fallback-image-bg { background: linear-gradient(to bottom right, #1f2937, #111827); display: flex; align-items: center; justify-content: center; }
+        .fallback-image-bg { background: linear-gradient(to bottom right, #1f2937, #111827); display: flex; align-items: center; justify-content: center; overflow: hidden;}
         input:focus { outline: none; }
-        
-        /* تأثيرات شاشة منع الإعلانات */
         .blur-content { filter: blur(12px) brightness(0.3); pointer-events: none; user-select: none; }
+        /* تحسينات قارئ المانجا */
+        .manga-page { width: 100%; max-width: 800px; margin: 0 auto; display: block; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-500/40 flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- 🚫 شاشة كاشف مانع الإعلانات الصارمة -->
     <div id="adblock-modal" class="hidden-view fixed inset-0 z-[9999] bg-gray-950/90 backdrop-blur-lg flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-red-500/30 p-8 sm:p-10 rounded-3xl max-w-lg w-full shadow-[0_0_50px_rgba(239,68,68,0.15)] text-center relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent"></div>
             <div class="relative z-10">
-                <div class="bg-red-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-red-500/20">
-                    <i data-lucide="shield-alert" class="w-12 h-12 text-red-500"></i>
-                </div>
+                <div class="bg-red-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-red-500/20"><i data-lucide="shield-alert" class="w-12 h-12 text-red-500"></i></div>
                 <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">مانع الإعلانات مفعل!</h2>
-                <p class="text-gray-300 mb-8 leading-relaxed text-lg">
-                    موقعنا مجاني بالكامل ونعتمد على الإعلانات لتوفير السيرفرات السريعة والحلقات الجديدة. 
-                    <br><span class="text-red-400 font-bold mt-2 block">يرجى إيقاف مانع الإعلانات (Adblocker) أو مانع الـ DNS لمواصلة المشاهدة.</span>
-                </p>
-                <button onclick="location.reload()" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg hover:shadow-red-500/25 text-lg">
-                    <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-                    لقد قمت بإيقافه، أعد تحميل الصفحة
+                <p class="text-gray-300 mb-8 leading-relaxed text-lg">موقعنا يعتمد على الإعلانات لتوفير الحلقات والفصول الجديدة.<br><span class="text-red-400 font-bold mt-2 block">يرجى إيقاف مانع الإعلانات (Adblocker) أو مانع الـ DNS لمواصلة المشاهدة.</span></p>
+                <button onclick="location.reload()" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-8 py-4 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2 shadow-lg">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> لقد قمت بإيقافه، أعد تحميل الصفحة
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- حاوية المحتوى الرئيسي -->
     <div id="main-content-wrapper" class="flex flex-col min-h-screen w-full transition-all duration-500">
         
-        <!-- شريط التنقل -->
         <nav class="fixed w-full top-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50 shadow-lg transition-all">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 sm:gap-4">
                     <button id="back-btn" onclick="navigateBack()" class="hidden p-2 bg-gray-800/50 hover:bg-purple-600/20 text-gray-300 hover:text-purple-400 rounded-xl transition-all items-center justify-center group" title="رجوع">
                         <i data-lucide="arrow-right" class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform"></i>
                     </button>
-                    <div class="flex items-center gap-3 cursor-pointer group" onclick="goHome()">
+                    <div class="flex items-center gap-2 cursor-pointer group" onclick="goHome()">
                         <div class="bg-gradient-to-br from-purple-500 to-indigo-600 p-2 rounded-xl shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-shadow">
-                            <i data-lucide="monitor-play" class="w-5 h-5 text-white"></i>
+                            <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
                         </div>
-                        <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white hidden sm:block">
-                            أنمي<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500">ستريم</span>
-                        </h1>
+                        <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white hidden sm:block">أنمي<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500">ستريم</span></h1>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-4">
-                    <button onclick="goHome()" class="flex items-center gap-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50">
-                        <i data-lucide="home" class="w-4 h-4"></i>
-                        <span class="hidden sm:inline">الرئيسية</span>
+                <div class="flex bg-gray-900 border border-gray-800 rounded-xl p-1 shadow-inner">
+                    <button id="tab-anime" onclick="switchMode('anime')" class="flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all bg-purple-600 text-white shadow-md">
+                        <i data-lucide="monitor-play" class="w-4 h-4"></i><span class="hidden sm:inline">أنمي</span>
+                    </button>
+                    <button id="tab-manga" onclick="switchMode('manga')" class="flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+                        <i data-lucide="book-open" class="w-4 h-4"></i><span class="hidden sm:inline">مانجا</span>
                     </button>
                 </div>
             </div>
@@ -107,455 +80,375 @@
 
         <main class="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative">
             
-            <!-- شاشة التحميل -->
             <div id="loading-view" class="flex flex-col items-center justify-center min-h-[60vh]">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-purple-500 blur-xl opacity-20 rounded-full animate-pulse"></div>
-                    <i data-lucide="loader-2" class="w-16 h-16 text-purple-500 animate-spin mb-6 relative z-10"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 animate-pulse">
-                    جاري الاتصال بالسيرفرات...
-                </h2>
+                <div class="relative"><div class="absolute inset-0 bg-purple-500 blur-xl opacity-20 rounded-full animate-pulse"></div><i data-lucide="loader-2" class="w-16 h-16 text-purple-500 animate-spin mb-6 relative z-10"></i></div>
+                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 animate-pulse">جاري جلب البيانات...</h2>
             </div>
 
-            <!-- شاشة الخطأ -->
             <div id="error-view" class="hidden-view flex items-center justify-center min-h-[60vh]">
                 <div class="bg-gray-900 border border-red-500/30 p-8 rounded-3xl max-w-md w-full shadow-2xl shadow-red-900/20 text-center">
-                    <div class="bg-red-500/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i data-lucide="alert-circle" class="w-10 h-10 text-red-500"></i>
-                    </div>
+                    <div class="bg-red-500/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="alert-circle" class="w-10 h-10 text-red-500"></i></div>
                     <h2 class="text-2xl font-black text-white mb-3">عذراً، حدث خطأ!</h2>
                     <p id="error-message" class="text-gray-400 mb-8 leading-relaxed"></p>
-                    <button onclick="location.reload()" class="bg-white hover:bg-gray-200 text-black px-8 py-3 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                        إعادة المحاولة
-                    </button>
+                    <button onclick="location.reload()" class="bg-white hover:bg-gray-200 text-black px-8 py-3 rounded-xl font-bold transition-all w-full flex justify-center items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> إعادة المحاولة</button>
                 </div>
             </div>
 
-            <!-- الصفحة الرئيسية (الكتالوج) -->
             <div id="home-view" class="hidden-view fade-in">
-                <div class="text-center mb-12 relative z-10">
-                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
-                        اكتشف عالم <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">الأنمي</span>
-                    </h2>
-                    <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto mb-8">
-                        شاهد أحدث الحلقات والمسلسلات بجودة عالية وبدون تقطيع
-                    </p>
-                    
-                    <div class="relative max-w-2xl mx-auto group">
-                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                            <i data-lucide="search" class="h-5 w-5 text-gray-400 group-focus-within:text-purple-500 transition-colors"></i>
-                        </div>
-                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث عن اسم الأنمي أو الوصف...">
+                <div class="text-center mb-10 relative z-10">
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">اكتشف عالم <span id="home-title-highlight" class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">الأنمي</span></h2>
+                    <div class="relative max-w-2xl mx-auto group mt-8">
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none"><i data-lucide="search" class="h-5 w-5 text-gray-400"></i></div>
+                        <input type="text" id="search-input" oninput="handleSearch()" class="block w-full pl-4 pr-12 py-4 border-2 border-gray-800 rounded-2xl bg-gray-900/50 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 sm:text-lg transition-all shadow-xl backdrop-blur-sm" placeholder="ابحث...">
                     </div>
                 </div>
-
                 <div id="stats-container" class="flex justify-between items-center text-sm font-medium text-gray-400 mb-6 border-b border-gray-800/50 pb-4"></div>
-                <div id="series-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6"></div>
-                
-                <div id="no-results" class="hidden-view text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800/50 backdrop-blur-sm">
-                    <i data-lucide="alert-circle" class="mx-auto h-16 w-16 text-gray-600 mb-4 block"></i>
-                    <h3 class="text-xl font-bold text-gray-300">لم يتم العثور على نتائج</h3>
-                </div>
+                <div id="catalog-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6"></div>
+                <div id="no-results" class="hidden-view text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800/50 backdrop-blur-sm"><i data-lucide="alert-circle" class="mx-auto h-16 w-16 text-gray-600 mb-4 block"></i><h3 class="text-xl font-bold text-gray-300">لم يتم العثور على نتائج</h3></div>
             </div>
 
-            <!-- صفحة تفاصيل الأنمي -->
-            <div id="series-view" class="hidden-view slide-up">
-                <div id="series-hero" class="relative w-full rounded-3xl overflow-hidden mb-10 shadow-2xl border border-gray-800 mt-4 bg-gray-900"></div>
-
+            <div id="details-view" class="hidden-view slide-up">
+                <div id="details-hero" class="relative w-full rounded-3xl overflow-hidden mb-10 shadow-2xl border border-gray-800 mt-4 bg-gray-900"></div>
                 <div class="max-w-5xl mx-auto">
-                    <div class="flex items-center gap-3 mb-6 px-2">
-                        <div class="w-1.5 h-8 bg-purple-500 rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-white">الحلقات المتاحة</h3>
-                    </div>
-                    <div id="episodes-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div class="flex items-center gap-3 mb-6 px-2"><div class="w-1.5 h-8 bg-purple-500 rounded-full"></div><h3 id="list-title" class="text-2xl font-bold text-white">القائمة</h3></div>
+                    <div id="items-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </div>
             </div>
 
-            <!-- صفحة المشاهدة (الفيديو + الإعلانات) -->
-            <div id="watch-view" class="hidden-view zoom-in max-w-5xl mx-auto">
+            <div id="watch-anime-view" class="hidden-view zoom-in max-w-5xl mx-auto">
                 <div id="watch-info" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-900 p-4 rounded-2xl border border-gray-800"></div>
-
-                <!-- المشغل مع طبقة الإعلانات الشفافة القوية -->
+                
                 <div class="bg-black rounded-3xl overflow-hidden shadow-2xl shadow-black aspect-video relative w-full border border-gray-800/80 mb-6 ring-1 ring-white/5">
-                    <div id="video-container" class="w-full h-full relative">
-                        <!-- يُحقن الـ iframe هنا -->
-                    </div>
-                    <!-- الطبقة الشفافة للمشغل (تجبر المستخدم على نقر الإعلان قبل المشاهدة) -->
+                    <div id="video-container" class="w-full h-full relative"></div>
                     <div id="player-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden flex items-center justify-center">
-                        <!-- أيقونة تشغيل وهمية لجذب النقرة -->
-                        <div class="bg-purple-600/80 p-5 rounded-full shadow-[0_0_30px_rgba(147,51,234,0.6)] animate-pulse pointer-events-none">
-                            <i data-lucide="play" class="w-10 h-10 text-white ml-1 fill-current"></i>
-                        </div>
+                        <div class="bg-purple-600/80 p-5 rounded-full shadow-[0_0_30px_rgba(147,51,234,0.6)] animate-pulse pointer-events-none"><i data-lucide="play" class="w-10 h-10 text-white ml-1 fill-current"></i></div>
                     </div>
                 </div>
 
-                <!-- 💰 إعلان البانر 300x250 المستمر -->
-                <div class="w-full flex justify-center items-center mb-8 overflow-hidden ad-container">
+                <div class="w-full flex justify-center items-center mb-8 ad-container">
                     <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative min-w-[300px] min-h-[250px] flex items-center justify-center fallback-image-bg">
                         <span class="absolute text-gray-700 text-sm font-bold opacity-50">إعلان</span>
-                        <script type="text/javascript">
-                            atOptions = {
-                                'key' : '7fcab410df2fca990ac4cab530dbaa09',
-                                'format' : 'iframe',
-                                'height' : 250,
-                                'width' : 300,
-                                'params' : {}
-                            };
-                        </script>
+                        <script type="text/javascript">atOptions = {'key' : '7fcab410df2fca990ac4cab530dbaa09','format' : 'iframe','height' : 250,'width' : 300,'params' : {}};</script>
                         <script type="text/javascript" src="https://www.highperformanceformat.com/7fcab410df2fca990ac4cab530dbaa09/invoke.js"></script>
                     </div>
                 </div>
 
                 <div id="servers-container" class="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg mb-8">
-                    <h3 class="text-white font-bold mb-5 flex items-center gap-2 text-lg">
-                        <i data-lucide="server" class="w-5 h-5 text-purple-500"></i>
-                        اختر سيرفر المشاهدة:
-                    </h3>
+                    <h3 class="text-white font-bold mb-5 flex items-center gap-2 text-lg"><i data-lucide="server" class="w-5 h-5 text-purple-500"></i>اختر سيرفر:</h3>
                     <div id="servers-list" class="flex flex-wrap gap-3"></div>
+                </div>
+            </div>
+
+            <div id="read-manga-view" class="hidden-view zoom-in max-w-4xl mx-auto">
+                <div id="read-info" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-900 p-4 rounded-2xl border border-gray-800"></div>
+
+                <div class="w-full flex justify-center items-center mb-6 ad-container">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative min-w-[300px] min-h-[250px] flex items-center justify-center fallback-image-bg">
+                        <span class="absolute text-gray-700 text-sm font-bold opacity-50">إعلان</span>
+                        <script type="text/javascript">atOptions = {'key' : '7fcab410df2fca990ac4cab530dbaa09','format' : 'iframe','height' : 250,'width' : 300,'params' : {}};</script>
+                        <script type="text/javascript" src="https://www.highperformanceformat.com/7fcab410df2fca990ac4cab530dbaa09/invoke.js"></script>
+                    </div>
+                </div>
+
+                <div class="bg-gray-950 rounded-2xl overflow-hidden relative border border-gray-800/80 mb-6 p-2 sm:p-4">
+                    <div id="manga-pages-container" class="flex flex-col items-center gap-2"></div>
+                    <div id="reader-ad-overlay" class="absolute inset-0 z-40 bg-transparent cursor-pointer hidden flex items-center justify-center">
+                        <div class="bg-purple-600/90 px-6 py-3 rounded-full shadow-[0_0_30px_rgba(147,51,234,0.6)] animate-bounce pointer-events-none flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-6 h-6 text-white"></i><span class="text-white font-bold">اضغط لبدء القراءة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-center items-center mb-8 ad-container">
+                    <div class="bg-gray-900 border border-gray-800 p-2 rounded-xl shadow-lg relative min-w-[300px] min-h-[250px] flex items-center justify-center fallback-image-bg">
+                        <span class="absolute text-gray-700 text-sm font-bold opacity-50">إعلان</span>
+                        <script type="text/javascript">atOptions = {'key' : '7fcab410df2fca990ac4cab530dbaa09','format' : 'iframe','height' : 250,'width' : 300,'params' : {}};</script>
+                        <script type="text/javascript" src="https://www.highperformanceformat.com/7fcab410df2fca990ac4cab530dbaa09/invoke.js"></script>
+                    </div>
                 </div>
             </div>
 
         </main>
 
-        <!-- الفوتر -->
         <footer class="bg-gray-950 border-t border-gray-900 py-8 mt-auto z-10">
             <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-2 text-gray-400">
-                    <i data-lucide="monitor-play" class="w-5 h-5 text-purple-500"></i>
+                    <i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>
                     <span class="font-bold text-white text-lg">أنمي ستريم</span>
-                    <span class="text-sm">&copy; 2026</span>
                 </div>
-                <p class="text-gray-600 text-sm">جميع الحقوق محفوظة لموقع أنمي ستريم.</p>
+                <p class="text-gray-600 text-sm">جميع الحقوق محفوظة.</p>
             </div>
         </footer>
     </div>
 
-    <!-- 🧠 السكريبت الشامل للموقع -->
     <script>
-        // تفعيل الأيقونات
         lucide.createIcons();
 
-        // 🔗 الروابط الأساسية
-        const API_URL = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
+        // 🔗 الروابط
+        const ANIME_API = 'https://serverbohauwjsb.vercel.app/api/anime-data'; 
+        const MANGA_API = 'https://raw.githubusercontent.com/Guexbeta/Anime-hen/refs/heads/main/milf_full_api.json';
         const POPUNDER_URL = "https://pl28918994.effectivegatecpm.com/a9/b3/f4/a9b3f4173f1e3da4cab59021334e52f1.js";
         
-        let appData = null; 
-        let currentSeriesIndex = null; 
-        let currentEpisodeIndex = null; 
-        let currentServer = null;
+        let animeData = null; let mangaData = null;
+        let currentMode = 'anime'; // 'anime' or 'manga'
+        let currentIndex = null; let currentSubIndex = null; let currentServer = null;
 
-        // دوال الحماية والمساعدة
         const escapeHTML = (str) => { if (!str) return ''; return str.toString().replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag])); };
-        function handleImageError(img) { img.onerror = null; img.style.display = 'none'; img.nextElementSibling.classList.remove('hidden'); }
+        function handleImageError(img) { img.onerror = null; img.style.display = 'none'; if(img.nextElementSibling) img.nextElementSibling.classList.remove('hidden'); }
 
-        // ====================================================================
-        // 🛡️ 1. نظام كشف مانع الإعلانات (Adblock Detector) الشامل
-        // ====================================================================
+        // ==========================================
+        // 🛡️ 1. كاشف مانع الإعلانات
+        // ==========================================
         async function detectAdBlock() {
             let blocked = false;
-            
-            // الفحص الأول: عناصر الـ DOM (إضافات المتصفح العادية)
-            const bait = document.createElement('div');
-            bait.className = 'ad-banner ads adbox doubleclick ad-slot';
-            bait.style.height = '1px'; bait.style.width = '1px'; bait.style.position = 'absolute'; bait.style.left = '-999px';
-            document.body.appendChild(bait);
-            
+            const bait = document.createElement('div'); bait.className = 'ad-banner ads adbox doubleclick ad-slot'; bait.style.height = '1px'; bait.style.width = '1px'; bait.style.position = 'absolute'; bait.style.left = '-999px'; document.body.appendChild(bait);
             await new Promise(r => setTimeout(r, 150));
-            
-            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') {
-                blocked = true;
-            }
+            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none') blocked = true;
             bait.remove();
-
-            // الفحص الثاني: فحص الاتصال بالشبكة (أجهزة حظر DNS والمتصفحات القوية مثل Brave)
-            if (!blocked) {
-                try {
-                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { 
-                        method: 'HEAD', 
-                        mode: 'no-cors', 
-                        cache: 'no-store' 
-                    });
-                } catch (e) { 
-                    blocked = true; 
-                }
-            }
-
-            // تطبيق إجراءات الحظر على الموقع
-            if (blocked) {
-                document.getElementById('adblock-modal').classList.remove('hidden-view');
-                document.getElementById('main-content-wrapper').classList.add('blur-content');
-                document.body.style.overflow = 'hidden';
-            }
+            if (!blocked) { try { await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors', cache: 'no-store' }); } catch (e) { blocked = true; } }
+            if (blocked) { document.getElementById('adblock-modal').classList.remove('hidden-view'); document.getElementById('main-content-wrapper').classList.add('blur-content'); document.body.style.overflow = 'hidden'; }
         }
 
-        // ====================================================================
-        // 💰 2. مدير الإعلانات اللانهائي (Infinite Ad Manager)
-        // ====================================================================
+        // ==========================================
+        // 💰 2. مدير الإعلانات (AdManager) المطور
+        // ==========================================
         const AdManager = {
-            // دالة حقن البوب أندر
             injectPop: function() {
-                const oldScript = document.getElementById('adsterra-pop-script');
-                if (oldScript) oldScript.remove(); // إزالة القديم لضمان التنفيذ الجديد
-                
-                const script = document.createElement('script');
-                script.id = 'adsterra-pop-script';
-                script.src = POPUNDER_URL;
-                script.setAttribute('data-cfasync', 'false');
-                document.head.appendChild(script);
+                const oldScript = document.getElementById('adsterra-pop-script'); if (oldScript) oldScript.remove(); 
+                const script = document.createElement('script'); script.id = 'adsterra-pop-script'; script.src = POPUNDER_URL; script.setAttribute('data-cfasync', 'false'); document.head.appendChild(script);
             },
-
-            // أ. نظام الموقع العام (الروابط والضغطات العادية)
             initGlobalSystem: function() {
-                const GLOBAL_COOLDOWN = 4 * 60 * 1000; // 4 دقائق
-                this.injectPop(); // نجهز الإعلان لأول ضغطة فور دخول الموقع
-
+                const GLOBAL_COOLDOWN = 4 * 60 * 1000; this.injectPop(); 
                 document.addEventListener('click', (e) => {
-                    // نتجاهل الضغط إذا كان على طبقة المشغل (لها نظامها الخاص)
-                    if (e.target.closest('#player-ad-overlay')) return;
-
-                    const now = Date.now();
-                    let initPops = parseInt(localStorage.getItem('globalInitPops') || '0');
-                    let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPopTime') || '0');
-
-                    // المرحلة الأولى: المستخدم الجديد (إعلانين في أول نقرتين)
+                    if (e.target.closest('#player-ad-overlay') || e.target.closest('#reader-ad-overlay')) return;
+                    const now = Date.now(); let initPops = parseInt(localStorage.getItem('globalInitPops') || '0'); let lastGlobalPop = parseInt(localStorage.getItem('lastGlobalPopTime') || '0');
                     if (initPops < 2) {
-                        initPops++;
-                        localStorage.setItem('globalInitPops', initPops.toString());
-                        
-                        if (initPops === 2) {
-                            localStorage.setItem('lastGlobalPopTime', now.toString()); // انتهت المرحلة الأولى، يبدأ العداد
-                        } else {
-                            setTimeout(() => this.injectPop(), 300); // نجهز السكربت للنقرة الثانية فوراً
-                        }
+                        initPops++; localStorage.setItem('globalInitPops', initPops.toString());
+                        if (initPops === 2) localStorage.setItem('lastGlobalPopTime', now.toString()); else setTimeout(() => this.injectPop(), 300);
                         return;
                     }
-
-                    // المرحلة اللانهائية: هل مر 4 دقائق منذ آخر ظهور عام؟
-                    if (now - lastGlobalPop >= GLOBAL_COOLDOWN) {
-                        this.injectPop();
-                        localStorage.setItem('lastGlobalPopTime', now.toString());
-                        setTimeout(() => this.injectPop(), 300); // نجهز للمرة القادمة
-                    }
+                    if (now - lastGlobalPop >= GLOBAL_COOLDOWN) { this.injectPop(); localStorage.setItem('lastGlobalPopTime', now.toString()); setTimeout(() => this.injectPop(), 300); }
                 });
             },
-
-            // ب. نظام طبقة المشغل (إجبار الإعلان قبل المشاهدة)
-            initPlayerSystem: function() {
-                const PLAYER_COOLDOWN = 15 * 60 * 1000; // 15 دقيقة
-                const overlay = document.getElementById('player-ad-overlay');
-                
-                const checkOverlayStatus = () => {
-                    const now = Date.now();
-                    let lastPlayerPop = parseInt(localStorage.getItem('lastPlayerPopTime') || '0');
-                    
-                    // إظهار الطبقة إذا مرت 15 دقيقة أو إذا كانت أول مرة للمشغل
-                    if (lastPlayerPop === 0 || (now - lastPlayerPop >= PLAYER_COOLDOWN)) {
-                        overlay.classList.remove('hidden');
-                        overlay.setAttribute('data-clicks', '0');
-                        this.injectPop(); // نجهز الإعلان
-                    } else {
-                        overlay.classList.add('hidden');
-                    }
+            initPremiumContentSystem: function() { // للمشغل والقارئ معاً
+                const setupOverlay = (overlayId) => {
+                    const overlay = document.getElementById(overlayId); if(!overlay) return;
+                    const checkStatus = () => {
+                        const now = Date.now(); let lastPop = parseInt(localStorage.getItem('lastPremiumPopTime') || '0');
+                        if (lastPop === 0 || (now - lastPop >= 15 * 60 * 1000)) { overlay.classList.remove('hidden'); overlay.setAttribute('data-clicks', '0'); this.injectPop(); } else { overlay.classList.add('hidden'); }
+                    };
+                    setInterval(checkStatus, 10000);
+                    overlay.addEventListener('click', (e) => {
+                        e.stopPropagation(); let clicks = parseInt(overlay.getAttribute('data-clicks') || '0'); clicks++;
+                        if (clicks === 1) { overlay.setAttribute('data-clicks', '1'); setTimeout(() => this.injectPop(), 300); } 
+                        else if (clicks >= 2) { localStorage.setItem('lastPremiumPopTime', Date.now().toString()); overlay.classList.add('hidden'); }
+                    });
+                    return checkStatus;
                 };
-
-                // مراقبة حية لفتح الطبقة إذا انتهى الوقت والمستخدم ما زال يتصفح
-                setInterval(checkOverlayStatus, 10000);
-
-                overlay.addEventListener('click', (e) => {
-                    e.stopPropagation(); // منع اختلاط النقرة مع النظام العام
-                    
-                    let clicks = parseInt(overlay.getAttribute('data-clicks') || '0');
-                    clicks++;
-                    
-                    if (clicks === 1) {
-                        overlay.setAttribute('data-clicks', '1');
-                        setTimeout(() => this.injectPop(), 300); // تجهيز الإعلان الثاني فوراً
-                    } else if (clicks >= 2) {
-                        localStorage.setItem('lastPlayerPopTime', Date.now().toString());
-                        overlay.classList.add('hidden'); // إخفاء الطبقة والسماح بالمشاهدة
-                    }
-                });
-
-                // دالة لتشغيل الفحص يدوياً عند دخول صفحة الفيديو
-                window.refreshPlayerAds = checkOverlayStatus;
+                window.refreshPremiumAds = () => { setupOverlay('player-ad-overlay')(); setupOverlay('reader-ad-overlay')(); };
+                setupOverlay('player-ad-overlay'); setupOverlay('reader-ad-overlay');
             }
         };
 
-        // ====================================================================
-        // 🚀 3. نظام التوجيه الذكي (History API Router)
-        // ====================================================================
-        function handleRouting() {
-            if (!appData) return;
-            const urlParams = new URLSearchParams(window.location.search);
-            const seriesParam = urlParams.get('series');
-            const watchParam = urlParams.get('watch');
+        // ==========================================
+        // 🚀 3. نظام التوجيه والصفحات (Router)
+        // ==========================================
+        function updateTabUI() {
+            const btnAnime = document.getElementById('tab-anime'); const btnManga = document.getElementById('tab-manga');
+            if(currentMode === 'anime') {
+                btnAnime.className = "flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all bg-purple-600 text-white shadow-md";
+                btnManga.className = "flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all text-gray-400 hover:text-white hover:bg-gray-800";
+                document.getElementById('home-title-highlight').textContent = 'الأنمي';
+            } else {
+                btnManga.className = "flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all bg-purple-600 text-white shadow-md";
+                btnAnime.className = "flex items-center gap-2 px-3 sm:px-5 py-1.5 rounded-lg text-sm font-bold transition-all text-gray-400 hover:text-white hover:bg-gray-800";
+                document.getElementById('home-title-highlight').textContent = 'المانجا';
+            }
+        }
 
-            // التوجيه للصفحات بناءً على الرابط
-            if (seriesParam !== null && watchParam !== null) { 
-                renderWatchView(parseInt(seriesParam), parseInt(watchParam)); 
-            } else if (seriesParam !== null) { 
-                renderSeriesView(parseInt(seriesParam)); 
+        window.switchMode = function(mode) {
+            if(currentMode === mode) return; currentMode = mode; history.pushState(null, '', `?m=${mode}`); handleRouting();
+        }
+
+        function handleRouting() {
+            if (!animeData || !mangaData) return;
+            const urlParams = new URLSearchParams(window.location.search);
+            currentMode = urlParams.get('m') || 'anime';
+            const idParam = urlParams.get('id'); const subParam = urlParams.get('sub'); // sub = episode or chapter
+            
+            updateTabUI();
+
+            if (idParam !== null && subParam !== null) { 
+                currentMode === 'anime' ? renderWatchAnime(parseInt(idParam), parseInt(subParam)) : renderReadManga(parseInt(idParam), parseInt(subParam)); 
+            } else if (idParam !== null) { 
+                renderDetailsView(parseInt(idParam)); 
             } else { 
                 renderHomeView(); 
             }
         }
 
-        // الاستماع لأزرار التنقل في المتصفح (للأمام/للخلف)
         window.addEventListener('popstate', () => handleRouting());
+        function goHome() { history.pushState(null, '', `?m=${currentMode}`); handleRouting(); }
+        function navigateBack() { if(window.history.length > 1) { history.back(); } else { goHome(); } }
         
-        function goHome() { 
-            history.pushState(null, '', window.location.pathname); 
-            handleRouting(); 
-        }
-        
-        function navigateBack() { 
-            if(window.history.length > 1) { history.back(); } else { goHome(); } 
-        }
-        
-        window.openSeriesByIndex = function(index) { 
-            history.pushState(null, '', `?series=${index}`); 
-            handleRouting(); 
-        };
-        
-        window.openWatchByIndex = function(epIndex) { 
-            history.pushState(null, '', `?series=${currentSeriesIndex}&watch=${epIndex}`); 
-            handleRouting(); 
-        };
+        window.openItemByIndex = function(index) { history.pushState(null, '', `?m=${currentMode}&id=${index}`); handleRouting(); };
+        window.openSubItemByIndex = function(subIndex) { history.pushState(null, '', `?m=${currentMode}&id=${currentIndex}&sub=${subIndex}`); handleRouting(); };
 
-        // ====================================================================
-        // 📡 4. جلب وعرض البيانات والتصميم الأساسي
-        // ====================================================================
+        // ==========================================
+        // 📡 4. جلب وعرض البيانات
+        // ==========================================
         async function fetchAppData() {
             try {
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('فشل الاتصال بالسيرفر.');
-                appData = await response.json();
-                renderHomeStats(); 
+                // جلب الأنمي والمانجا معاً
+                const [animeRes, mangaRes] = await Promise.all([ fetch(ANIME_API), fetch(MANGA_API) ]);
+                if (!animeRes.ok || !mangaRes.ok) throw new Error('فشل جلب البيانات.');
+                animeData = await animeRes.json(); mangaData = await mangaRes.json();
                 handleRouting(); 
             } catch (error) {
-                document.getElementById('error-message').textContent = "يرجى التأكد من اتصالك أو من إعدادات الـ CORS. التفاصيل: " + error.message;
-                switchView('error-view');
+                document.getElementById('error-message').textContent = "مشكلة في الاتصال. " + error.message; switchView('error-view');
             }
         }
 
         function switchView(viewId) {
-            const views = ['loading-view', 'error-view', 'home-view', 'series-view', 'watch-view'];
-            views.forEach(id => document.getElementById(id).classList.add('hidden-view'));
+            ['loading-view', 'error-view', 'home-view', 'details-view', 'watch-anime-view', 'read-manga-view'].forEach(id => document.getElementById(id).classList.add('hidden-view'));
             document.getElementById(viewId).classList.remove('hidden-view');
-            
             const backBtn = document.getElementById('back-btn');
-            if (viewId === 'home-view' || viewId === 'loading-view' || viewId === 'error-view') { 
-                backBtn.classList.add('hidden'); backBtn.classList.remove('flex'); 
-            } else { 
-                backBtn.classList.remove('hidden'); backBtn.classList.add('flex'); 
-            }
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-            lucide.createIcons();
+            if (['home-view', 'loading-view', 'error-view'].includes(viewId)) { backBtn.classList.add('hidden'); backBtn.classList.remove('flex'); } 
+            else { backBtn.classList.remove('hidden'); backBtn.classList.add('flex'); }
+            window.scrollTo({ top: 0, behavior: 'smooth' }); lucide.createIcons();
         }
 
         function renderHomeView() {
-            const searchInput = document.getElementById('search-input'); 
-            if(searchInput) searchInput.value = '';
-            renderSeriesGrid(appData.series); 
+            const searchInput = document.getElementById('search-input'); if(searchInput) searchInput.value = '';
+            const data = currentMode === 'anime' ? animeData.series : mangaData.data;
+            renderCatalog(data);
+            
+            const stats = currentMode === 'anime' 
+                ? `<span>إجمالي المسلسلات: <span class="text-white font-bold ml-1">${animeData.total_series}</span></span><span dir="ltr">${escapeHTML(animeData.last_update.split(' ')[0])}</span>`
+                : `<span>إجمالي المانجا: <span class="text-white font-bold ml-1">${mangaData.total_manga}</span></span><span dir="ltr">${escapeHTML(mangaData.scraped_at.split(' ')[0])}</span>`;
+            document.getElementById('stats-container').innerHTML = `<div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800"><i data-lucide="folder-open" class="w-4 h-4 text-purple-500"></i>${stats.split('</span><span')[0]}</span></div><div class="flex items-center gap-2 text-gray-500"><i data-lucide="clock" class="w-4 h-4"></i><span${stats.split('</span><span')[1]}</div>`;
             switchView('home-view');
         }
 
-        function renderHomeStats() {
-            if (!appData) return;
-            document.getElementById('stats-container').innerHTML = `
-                <div class="flex items-center gap-2 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800"><i data-lucide="clapperboard" class="w-4 h-4 text-purple-500"></i><span>الأعمال المتاحة: <span class="text-white font-bold ml-1">${appData.total_series || appData.series.length}</span></span></div>
-                <div class="flex items-center gap-2 text-gray-500"><i data-lucide="clock" class="w-4 h-4"></i><span dir="ltr" class="text-gray-300 font-medium">${escapeHTML(appData.last_update.split(' ')[0])}</span></div>
-            `;
-        }
-
-        function renderSeriesGrid(seriesList) {
-            const grid = document.getElementById('series-grid'); const noResults = document.getElementById('no-results');
-            if (seriesList.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
+        function renderCatalog(list) {
+            const grid = document.getElementById('catalog-grid'); const noResults = document.getElementById('no-results');
+            if (list.length === 0) { grid.innerHTML = ''; noResults.classList.remove('hidden-view'); return; }
             noResults.classList.add('hidden-view'); let html = '';
-            
-            seriesList.forEach((series) => {
-                const eps = series.episodes_count || (series.episodes ? series.episodes.length : 0);
-                const title = escapeHTML(series.title); const poster = series.poster_url ? escapeHTML(series.poster_url) : '';
-                const idx = appData.series.indexOf(series);
+            const isAnime = currentMode === 'anime';
+            const baseData = isAnime ? animeData.series : mangaData.data;
+
+            list.forEach((item) => {
+                const subCount = isAnime ? (item.episodes_count || (item.episodes?item.episodes.length:0)) : item.chapters_count;
+                const title = escapeHTML(item.title); const poster = escapeHTML(isAnime ? item.poster_url : item.cover);
+                const idx = baseData.indexOf(item);
+                const icon = isAnime ? 'list-video' : 'layers';
                 
-                html += `<div onclick="openSeriesByIndex(${idx})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1.5 border border-gray-800 flex flex-col"><div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" /><div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800"><i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i></div><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[2px] z-30"><div class="bg-purple-600 p-4 rounded-full text-white shadow-lg shadow-purple-900/50 transform scale-75 group-hover:scale-100 transition-transform flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i></div></div><div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30 shadow-lg"><i data-lucide="list-video" class="w-3.5 h-3.5 text-purple-400"></i><span>${eps}</span></div><div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 z-30"><h3 class="font-bold text-gray-100 text-sm line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors">${title}</h3></div></div></div>`;
+                html += `<div onclick="openItemByIndex(${idx})" class="group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-purple-500/20 transition-all hover:-translate-y-1 border border-gray-800 flex flex-col"><div class="aspect-[2/3] relative overflow-hidden bg-gray-800 fallback-image-bg"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10" loading="lazy" /><div class="hidden absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-0 p-3 text-center bg-gray-800"><i data-lucide="image-off" class="w-10 h-10 opacity-30 mb-2"></i></div><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 z-20"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 backdrop-blur-[2px] z-30"><div class="bg-purple-600 p-4 rounded-full text-white shadow-lg transform scale-75 group-hover:scale-100 transition-transform"><i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i></div></div><div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10 z-30"><i data-lucide="${icon}" class="w-3.5 h-3.5 text-purple-400"></i><span>${subCount}</span></div><div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:translate-y-0 transition-transform z-30"><h3 class="font-bold text-gray-100 text-sm line-clamp-2 leading-tight drop-shadow-md group-hover:text-purple-300 transition-colors">${title}</h3></div></div></div>`;
             });
             grid.innerHTML = html; lucide.createIcons();
         }
 
-        function renderSeriesView(index) {
-            const series = appData.series[index]; if (!series) { goHome(); return; } currentSeriesIndex = index;
-            const title = escapeHTML(series.title); const desc = escapeHTML(series.description) || "لا يوجد وصف لهذا الأنمي.";
-            const poster = series.poster_url ? escapeHTML(series.poster_url) : ''; const episodesList = series.episodes || [];
-            
-            document.getElementById('series-hero').innerHTML = `<div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden"><img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" /><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div></div><div class="relative z-10 px-6 sm:px-10 py-10 flex flex-col md:flex-row gap-8 items-center md:items-end"><div class="shrink-0 w-48 sm:w-56 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover z-10" /></div><div class="flex-1 text-center md:text-right mt-4 md:mt-0"><h2 class="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2><p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 md:line-clamp-none bg-black/40 p-5 rounded-2xl backdrop-blur-md border border-white/5 shadow-inner">${desc}</p><div class="flex flex-wrap gap-4 justify-center md:justify-start"><div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl border border-gray-700"><i data-lucide="list-video" class="w-5 h-5 text-purple-400"></i><span class="font-bold">${episodesList.length} حلقات</span></div>${episodesList.length > 0 ? `<button onclick="openWatchByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all"><i data-lucide="play" class="w-5 h-5 fill-current"></i> ابدأ المشاهدة</button>` : ''}</div></div></div>`;
-            
-            const episodesContainer = document.getElementById('episodes-list');
-            if (episodesList.length === 0) { 
-                episodesContainer.innerHTML = `<div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400 backdrop-blur-sm"><p class="text-xl font-bold">لا توجد حلقات متاحة حالياً</p></div>`; 
-            } else {
-                let epHtml = ''; 
-                episodesList.forEach((ep, idx) => { 
-                    epHtml += `<button onclick="openWatchByIndex(${idx})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all duration-300 flex items-center justify-between text-right w-full"><div class="absolute inset-0 w-1 bg-gray-800 group-hover:bg-purple-500 transition-colors"></div><div class="flex items-center gap-4 pr-3"><div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all border border-gray-800 group-hover:border-purple-500 shrink-0"><i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white ml-1 ${idx === 0 ? 'fill-current' : ''}"></i></div><div><span class="block font-bold text-gray-200 group-hover:text-white mb-1 text-lg">${escapeHTML(ep.episode)}</span><span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit"><i data-lucide="server" class="w-3 h-3 text-purple-400"></i>${ep.servers ? ep.servers.length : 0} سيرفرات</span></div></div><div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full"><i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400"></i></div></button>`; 
-                });
-                episodesContainer.innerHTML = epHtml;
-            }
-            switchView('series-view');
+        window.handleSearch = function() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const list = currentMode === 'anime' ? animeData.series : mangaData.data;
+            const filtered = list.filter(s => (s.title && s.title.toLowerCase().includes(query)) || (s.description && s.description.toLowerCase().includes(query)));
+            renderCatalog(filtered);
         }
 
-        function renderWatchView(seriesIndex, epIndex) {
-            const series = appData.series[seriesIndex]; if (!series || !series.episodes || !series.episodes[epIndex]) { goHome(); return; }
-            currentSeriesIndex = seriesIndex; currentEpisodeIndex = epIndex; const episode = series.episodes[epIndex];
+        function renderDetailsView(index) {
+            const isAnime = currentMode === 'anime';
+            const item = isAnime ? animeData.series[index] : mangaData.data[index];
+            if (!item) { goHome(); return; } currentIndex = index;
+            
+            const title = escapeHTML(item.title); const desc = escapeHTML(item.description) || "لا يوجد وصف متاح.";
+            const poster = escapeHTML(isAnime ? item.poster_url : item.cover); 
+            const subItems = isAnime ? (item.episodes || []) : (item.chapters || []);
+            const badgeIcon = isAnime ? 'monitor-play' : 'book-open';
+            const subIcon = isAnime ? 'video' : 'images';
+            const btnText = isAnime ? 'ابدأ المشاهدة' : 'ابدأ القراءة';
+
+            document.getElementById('list-title').textContent = isAnime ? 'الحلقات المتاحة' : 'الفصول المتاحة';
+            document.getElementById('details-hero').innerHTML = `<div class="absolute inset-0 h-full w-full bg-gray-950 overflow-hidden"><img src="${poster}" onerror="this.style.display='none'" class="w-full h-full object-cover blur-3xl opacity-30 scale-125" /><div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div></div><div class="relative z-10 px-6 sm:px-10 py-10 flex flex-col md:flex-row gap-8 items-center md:items-end"><div class="shrink-0 w-48 sm:w-56 aspect-[2/3] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)] border-4 border-gray-800/80 relative bg-gray-800 flex items-center justify-center"><img src="${poster}" onerror="handleImageError(this)" class="w-full h-full object-cover z-10" /></div><div class="flex-1 text-center md:text-right mt-4 md:mt-0"><div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-full text-xs font-bold mb-4 backdrop-blur-md"><i data-lucide="${badgeIcon}" class="w-3.5 h-3.5"></i> ${isAnime ? 'أنمي' : 'مانجا'}</div><h2 class="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight drop-shadow-lg">${title}</h2><p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl line-clamp-4 bg-black/40 p-5 rounded-2xl border border-white/5 shadow-inner">${desc}</p><div class="flex flex-wrap gap-4 justify-center md:justify-start"><div class="flex items-center gap-2 text-gray-200 bg-gray-800/80 px-5 py-2.5 rounded-xl border border-gray-700"><i data-lucide="${subIcon}" class="w-5 h-5 text-purple-400"></i><span class="font-bold">${subItems.length} ${isAnime?'حلقات':'فصول'}</span></div>${subItems.length > 0 ? `<button onclick="openSubItemByIndex(0)" class="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-2.5 rounded-xl font-bold transition-all"><i data-lucide="play" class="w-5 h-5 fill-current"></i> ${btnText}</button>` : ''}</div></div></div>`;
+            
+            const listContainer = document.getElementById('items-list');
+            if (subItems.length === 0) { listContainer.innerHTML = `<div class="col-span-full text-center py-16 bg-gray-900/50 rounded-3xl border border-gray-800 text-gray-400"><p class="text-xl font-bold">المحتوى غير متوفر حالياً</p></div>`; } 
+            else {
+                let html = ''; subItems.forEach((sub, idx) => { 
+                    const subTitle = escapeHTML(isAnime ? sub.episode : sub.chapter);
+                    const subMeta = isAnime ? `${sub.servers ? sub.servers.length : 0} سيرفرات` : `${sub.page_count || sub.pages.length} صفحة`;
+                    const sIco = isAnime ? 'server' : 'file-image';
+                    html += `<button onclick="openSubItemByIndex(${idx})" class="group bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-purple-500/50 p-4 rounded-2xl transition-all flex items-center justify-between text-right w-full"><div class="flex items-center gap-4 pr-3"><div class="w-12 h-12 rounded-full bg-gray-950 group-hover:bg-purple-600 flex items-center justify-center transition-all border border-gray-800 shrink-0"><i data-lucide="play" class="w-4 h-4 text-gray-400 group-hover:text-white ml-1 ${idx === 0 ? 'fill-current' : ''}"></i></div><div><span class="block font-bold text-gray-200 group-hover:text-white mb-1 text-lg">${isAnime?'الحلقة':'الفصل'} ${subTitle}</span><span class="text-xs text-gray-500 flex items-center gap-1.5 bg-gray-950/50 px-2 py-0.5 rounded-md w-fit"><i data-lucide="${sIco}" class="w-3 h-3 text-purple-400"></i>${subMeta}</span></div></div><div class="bg-gray-800 group-hover:bg-purple-500/20 p-2 rounded-full"><i data-lucide="arrow-left" class="w-4 h-4 text-gray-500 group-hover:text-purple-400"></i></div></button>`; 
+                });
+                listContainer.innerHTML = html;
+            }
+            switchView('details-view');
+        }
+
+        // ================= الأنمي =================
+        function renderWatchAnime(sIdx, epIdx) {
+            const series = animeData.series[sIdx]; if (!series || !series.episodes || !series.episodes[epIdx]) { goHome(); return; }
+            currentIndex = sIdx; currentSubIndex = epIdx; const episode = series.episodes[epIdx];
             const servers = episode.servers || []; currentServer = servers.length > 0 ? servers[0] : null;
             
-            document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="play-circle" class="w-4 h-4"></i><span>${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 px-5 py-2.5 rounded-xl border border-gray-700 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> العودة للقائمة</button>`;
+            document.getElementById('watch-info').innerHTML = `<div class="flex-1"><h2 class="text-xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(series.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="video" class="w-4 h-4"></i><span>الحلقة ${escapeHTML(episode.episode)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 px-5 py-2.5 rounded-xl border border-gray-700 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> القائمة</button>`;
             
-            // تفعيل حالة حماية المشغل الإعلانية الجديدة
-            if(window.refreshPlayerAds) window.refreshPlayerAds();
-
-            renderServers(servers); switchView('watch-view');
+            if(window.refreshPremiumAds) window.refreshPremiumAds();
+            renderServers(servers); switchView('watch-anime-view');
         }
 
         window.selectServer = function(index) {
-            const series = appData.series[currentSeriesIndex]; const episode = series.episodes[currentEpisodeIndex];
-            currentServer = episode.servers[index]; renderServers(episode.servers); 
+            const ep = animeData.series[currentIndex].episodes[currentSubIndex]; currentServer = ep.servers[index]; renderServers(ep.servers); 
         }
 
         function renderServers(servers) {
-            const videoContainer = document.getElementById('video-container'); const serversList = document.getElementById('servers-list');
-            if (!currentServer) { 
-                videoContainer.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4 text-gray-700"></i><p class="text-lg font-bold text-gray-400">لا يوجد سيرفر مشاهدة متاح لهذه الحلقة</p></div>`; 
-                serversList.innerHTML = ''; return; 
+            const vidCont = document.getElementById('video-container'); const srvList = document.getElementById('servers-list');
+            if (!currentServer) { vidCont.innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-900"><i data-lucide="server-crash" class="w-16 h-16 mb-4"></i><p class="text-lg font-bold">لا يوجد سيرفر</p></div>`; srvList.innerHTML = ''; return; }
+            vidCont.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" scrolling="no"></iframe>`;
+            let btns = ''; servers.forEach((s, i) => { const isSel = (currentServer === s); const name = escapeHTML(s.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${i + 1}`; btns += `<button onclick="selectServer(${i})" class="relative px-5 py-3.5 rounded-xl text-sm font-bold transition-all border ${isSel ? 'bg-purple-600 text-white border-purple-500 ring-2 ring-purple-400' : 'bg-gray-800 text-gray-300 border-gray-700'}"><i data-lucide="monitor-play" class="w-4 h-4 inline-block ml-2 ${isSel ? 'text-white' : 'text-purple-400'}"></i>${name}</button>`; });
+            srvList.innerHTML = btns; lucide.createIcons();
+        }
+
+        // ================= المانجا =================
+        function renderReadManga(mIdx, chIdx) {
+            const manga = mangaData.data[mIdx]; if (!manga || !manga.chapters || !manga.chapters[chIdx]) { goHome(); return; }
+            currentIndex = mIdx; currentSubIndex = chIdx; const chapter = manga.chapters[chIdx];
+            const pages = chapter.pages || [];
+            
+            document.getElementById('read-info').innerHTML = `<div class="flex-1"><h2 class="text-xl font-bold text-white mb-2 line-clamp-1 border-r-4 border-purple-500 pr-3">${escapeHTML(manga.title)}</h2><div class="flex items-center text-purple-400 gap-2 font-medium bg-purple-500/10 w-fit px-3 py-1.5 rounded-lg text-sm mr-4 border border-purple-500/20"><i data-lucide="book-open" class="w-4 h-4"></i><span>الفصل ${escapeHTML(chapter.chapter)}</span></div></div><button onclick="navigateBack()" class="text-sm font-bold text-gray-300 hover:text-white flex items-center gap-2 bg-gray-800 px-5 py-2.5 rounded-xl border border-gray-700 shadow-sm"><i data-lucide="layout-list" class="w-4 h-4"></i> القائمة</button>`;
+            
+            const pCont = document.getElementById('manga-pages-container');
+            if(pages.length === 0){
+                pCont.innerHTML = `<div class="text-center py-10 text-gray-500"><p>لا توجد صور في هذا الفصل.</p></div>`;
+            } else {
+                let phtml = '';
+                pages.forEach((pUrl, i) => {
+                    phtml += `<img src="${escapeHTML(pUrl)}" alt="Page ${i+1}" class="manga-page" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'100%\\' height=\\'400\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%231f2937\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%239ca3af\\' font-family=\\'sans-serif\\' font-size=\\'16\\' text-anchor=\\'middle\\'>خطأ في تحميل الصورة</text></svg>'">`;
+                });
+                // أزرار التنقل بين الفصول (السابق/التالي)
+                phtml += `<div class="flex justify-between w-full max-w-[800px] mt-6 bg-gray-900 p-4 rounded-xl border border-gray-800">`;
+                if(chIdx < manga.chapters.length - 1) {
+                    phtml += `<button onclick="openSubItemByIndex(${chIdx + 1})" class="bg-gray-800 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i> الفصل السابق</button>`;
+                } else { phtml += `<div></div>`; }
+                if(chIdx > 0) {
+                    phtml += `<button onclick="openSubItemByIndex(${chIdx - 1})" class="bg-gray-800 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors">الفصل التالي <i data-lucide="arrow-left" class="w-4 h-4"></i></button>`;
+                } else { phtml += `<div></div>`; }
+                phtml += `</div>`;
+                
+                pCont.innerHTML = phtml;
             }
             
-            videoContainer.innerHTML = `<iframe src="${currentServer.embed_url}" class="absolute top-0 left-0 w-full h-full bg-black" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no"></iframe>`;
-            
-            document.getElementById('servers-container').classList.remove('hidden'); let btnsHtml = '';
-            servers.forEach((server, index) => {
-                const isSelected = (currentServer === server); const cleanName = escapeHTML(server.server_name).replace(/^[\d]+/, '').trim() || `سيرفر ${index + 1}`;
-                const baseClasses = "relative overflow-hidden px-5 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-3 w-full sm:w-auto flex-1 sm:flex-none justify-center sm:justify-start border"; const activeClasses = "bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border-purple-500 ring-2 ring-purple-400 ring-offset-2 ring-offset-gray-900 scale-[1.02] z-10"; const inactiveClasses = "bg-gray-800 text-gray-300 hover:bg-gray-700 border-gray-700";
-                btnsHtml += `<button onclick="selectServer(${index})" class="${baseClasses} ${isSelected ? activeClasses : inactiveClasses}">${isSelected ? '<div class="absolute inset-0 bg-white/20 animate-pulse"></div>' : ''}<i data-lucide="monitor-play" class="w-4 h-4 relative z-10 ${isSelected ? 'text-white' : 'text-purple-400'}"></i><span class="relative z-10 whitespace-nowrap">${cleanName}</span></button>`;
-            });
-            serversList.innerHTML = btnsHtml; lucide.createIcons();
+            if(window.refreshPremiumAds) window.refreshPremiumAds();
+            switchView('read-manga-view');
         }
 
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.toLowerCase().trim(); if (!appData || !appData.series) return;
-            const filtered = appData.series.filter(s => (s.title && s.title.toLowerCase().includes(query)) || (s.description && s.description.toLowerCase().includes(query)));
-            renderSeriesGrid(filtered);
-        }
-
-        // ====================================================================
+        // ==========================================
         // 🚀 5. تشغيل وبدء كافة الأنظمة
-        // ====================================================================
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            fetchAppData();         // جلب البيانات وبناء الموقع
-            detectAdBlock();        // تفعيل كاشف الحظر
-            AdManager.initGlobalSystem(); // تفعيل إعلانات الـ 4 دقائق
-            AdManager.initPlayerSystem(); // تفعيل إعلانات المشغل (الـ 15 دقيقة)
+            fetchAppData();         
+            detectAdBlock();        
+            AdManager.initGlobalSystem(); 
+            AdManager.initPremiumContentSystem(); 
         });
 
     </script>
